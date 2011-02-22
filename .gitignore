@@ -1,0 +1,5 @@
+/app/config/database.php
+/app/config
+/app/tmp
+/plugins
+/vendors
