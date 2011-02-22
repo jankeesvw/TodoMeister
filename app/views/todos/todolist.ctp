@@ -30,6 +30,7 @@
 			updateColorPickers();
 		};
 	});
+	
 	//set title
 	$( "title" ).html('<?php echo $project_id . " - " .$name; ?> [<?php echo count($statusOne); ?>,<?php echo count($statusTwo); ?>,<?php echo count($statusThree); ?>]');
 

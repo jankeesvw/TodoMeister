@@ -4,6 +4,26 @@ class TodosController extends AppController {
 	var $name = 'Todos';
 	var $helpers = array('Time','Javascript','Todo','RelativeTime');
 	
+	function todolist($project_id = "",$name = "") {
+		
+		if($project_id == "" || $name == ""){
+			$this->redirect(array('action' => 'start',$project_id));
+			exit;
+		}
+		
+		$this->set('project_id',$project_id); 
+		$this->set('name',$name);
+		$this->set('statusOne', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '1'),'order' => array('order','modified desc'))));
+		$this->set('statusTwo', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '2'),'order' => array('order','modified desc'))));
+		$this->set('statusThree', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '3'),'order' => array('order','modified desc'))));
+	
+		$this->set('title_for_layout', 'todomeister list'); 
+		
+		App::import('Helper', 'Html');
+		$html = new HtmlHelper();
+		$this->set('custom_title', $project_id.'<p> <a href="'.$html->url(array('action' => 'project_log',$project_id,$name)).'">show log</a></p>');
+	}
+	
 	function start($project_id = ""){
 		if(isset($_POST['projectname']) && isset($_POST['username'])){
 			$this->redirect(array('action' => 'todolist',$_POST['projectname'],$_POST['username']));
@@ -12,7 +32,7 @@ class TodosController extends AppController {
 		$this->set('title_for_layout', 'Welcome to todomeister'); 
 	}
 	
-	function logs($project_id = "",$name = "") {
+	function project_log($project_id = "",$name = "") {
 		
 		App::import('Helper', 'Html');
 		$html = new HtmlHelper();
@@ -20,12 +40,9 @@ class TodosController extends AppController {
 		$this->set('project_id',$project_id); 
 		$this->set('name',$name);
 		
-		$this->set('revs',$this->Todo->ShadowModel->find('all', array('conditions' => array('project_id' => $project_id),'order' => array('modified desc'))));
-		
+		$this->set('revs',$this->Todo->ShadowModel->find('all',array('conditions' => array('project_id' => $project_id),'order' => array('id desc, modified desc'))));
 		$this->set('custom_title', 'Project log for: <a href="'.$html->url(array("action" => "todolist",$project_id,$name)).'">'.$project_id.'</a>');
-		
 		$this->set('title_for_layout', 'Project log for: '.$project_id); 
-
 	}
 
 	function less() {
@@ -39,23 +56,6 @@ class TodosController extends AppController {
 		$this->Session->write('more',true);
 		$this->redirect($this->referer());
 		exit;
-	}
-	function todolist($project_id = "",$name = "") {
-		
-		if($project_id == "" || $name == ""){
-			echo "no project or user";
-			$this->redirect(array('action' => 'start',$project_id));
-			exit;
-		}
-		
-		$this->set('project_id',$project_id); 
-		$this->set('name',$name);
-		$this->set('statusOne', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '1'),'order' => array('order','modified desc'))));
-		$this->set('statusTwo', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '2'),'order' => array('order','modified desc'))));
-		$this->set('statusThree', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '3'),'order' => array('order','modified desc'))));
-	
-		$this->set('title_for_layout', 'todomeister list'); 
-	
 	}
 	
 	function add($project_id,$name){
@@ -81,7 +81,7 @@ class TodosController extends AppController {
 		
 		App::import('Helper', 'Html');
 		$html = new HtmlHelper();
-		$this->set('custom_title', '<a href="'.$html->url(array("action" => "todolist",$project_id,$name)).'">Log</a>');
+		$this->set('custom_title', '<a href="'.$html->url(array("action" => "todolist",$project_id,$name)).'">Item log</a>');
 	}
 	
 	function color($id){
