@@ -1,6 +1,10 @@
 <script type="text/javascript">
+	// JQuery on document readu function
 	$(function() {
+		// endable the sortable behavior
 		$( ".sortable" ).sortable();
+
+		// add a callback to the sortable behavior
 		$( ".sortable" ).sortable({
 		   update: function(event, ui) {
 			$.ajax({
@@ -8,32 +12,36 @@
 			   url: "<?php echo $this->Html->url(array("action" => "order"));?>",
 			   data: "item="+ui.item.attr('id')+"&order="+$(this).sortable( "toArray" )
 			 });
+			// the the current version to -1 so the page refresn won't get called
 			$currentVersion = "-1";
 			}
 
-	});
+		});
 
-	$('.todo.editable').dblclick(function() {
-		if($(this).hasClass('editable')){
-			$(this).removeClass('editable');
-			id = $(this).parent().attr('id');
-			text = $(this).html();
-			text = text.replace(/<br>/gi, "")
-			replacetext = '';
-			replacetext += '<form method="post" action="<?php echo $this->Html->url(array("action" => "update",$project_id,$name));?>">';
-			replacetext += '<textarea name="todo" type="text">'+text+'</textarea>';
-			replacetext += '<input name="id" type="hidden" value="'+id+'">';
-			replacetext += '<input type="submit" value="save" / >';
-			replacetext += '</form>';
-			$(this).html(replacetext);
-			$(this).parent().children('.actions').hide();
-			updateColorPickers();
-		};
-	});
+		// edit a todoitem when a user clicks the text
+		$('.todo.editable').dblclick(function() {
+			if($(this).hasClass('editable')){
+				$(this).removeClass('editable');
+				id = $(this).parent().attr('id');
+				text = $(this).html();
+				text = text.replace(/<br>/gi, "")
+				replacetext = '';
+				replacetext += '<form method="post" action="<?php echo $this->Html->url(array("action" => "update",$project_id,$name));?>">';
+				replacetext += '<textarea name="todo" type="text">'+text+'</textarea>';
+				replacetext += '<input name="id" type="hidden" value="'+id+'">';
+				replacetext += '<input type="submit" value="save" / >';
+				replacetext += '</form>';
+				$(this).html(replacetext);
+				$(this).parent().children('.actions').hide();
+				updateColorPickers();
+			};
+		});
 	
-	//set title
-	$( "title" ).html('<?php echo $project_id . " - " .$name; ?> [<?php echo count($statusOne); ?>,<?php echo count($statusTwo); ?>,<?php echo count($statusThree); ?>]');
+		//set title of the HTML page
+		$( "title" ).html('<?php echo $project_id . " - " .$name; ?> [<?php echo count($statusOne); ?>,<?php echo count($statusTwo); ?>,<?php echo count($statusThree); ?>]');
 
+		
+		// handle color changes
 		$('.color').change(function() {			
 			var id =  $(this).attr('name');
 			var color =  $(this).attr('value');
@@ -45,9 +53,10 @@
 			 });
 
 			$currentVersion = "-1";
-
+			// the the current version to -1 so the page refresn won't get called
 		});
 
+		// the url can contain a # and a status number, this gives input to right field
 		urlparts = window.location.href.split('#');
 		urlparts.shift();
 		if(urlparts.length > 0){
