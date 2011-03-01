@@ -2,9 +2,9 @@
 	class TodoHelper extends AppHelper {
 			var $helpers = array('Html','RelativeTime');
 	 
-			function render($data,$project_id="",$name="") {
+			function render($data,$project_id="",$name="",$auth_level=-1) {
 				$current_status = $data['Todo']['status'];
-				
+							
 				$editlinks = "";
 				
 				switch ($current_status) {
@@ -21,6 +21,8 @@
 						$editlinks .= "<a href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">show log</a>";
 						break;
 				}
+				
+				if($auth_level < 2) $editlinks = ""; 
 				
 				?>
 					<li id="<?php echo $data['Todo']['id']; ?>" class="background status<?php echo $current_status;?>">						

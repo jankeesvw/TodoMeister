@@ -26,5 +26,5 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/views/pages/home.ctp)...
  */
-Router::connect('/:action/*', array('controller' => 'Todos','action'=>':action'));
+Router::connect('/todolist/*', array('controller' => 'Todos','action'=>'todolist'));
 Router::connect('/', array('controller' => 'Todos','action'=>'start'));

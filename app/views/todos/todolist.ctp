@@ -2,6 +2,7 @@
 	// JQuery on document readu function
 	$(function() {
 		// endable the sortable behavior
+		<?php if($auth_level == 2) { ?>
 		$( ".sortable" ).sortable();
 
 		// add a callback to the sortable behavior
@@ -10,10 +11,11 @@
 			$.ajax({
 			   type: "POST",
 			   url: "<?php echo $this->Html->url(array("action" => "order"));?>",
-			   data: "item="+ui.item.attr('id')+"&order="+$(this).sortable( "toArray" )
+			   data: "item="+ui.item.attr('id')+"&order="+$(this).sortable( "toArray" ),
+				success: function(html){
+					$currentVersion = html;
+				  }
 			 });
-			// the the current version to -1 so the page refresn won't get called
-			$currentVersion = "-1";
 			}
 
 		});
@@ -36,9 +38,7 @@
 				updateColorPickers();
 			};
 		});
-	
-		//set title of the HTML page
-		$( "title" ).html('<?php echo $project_id . " - " .$name; ?> [<?php echo count($statusOne); ?>,<?php echo count($statusTwo); ?>,<?php echo count($statusThree); ?>]');
+
 
 		
 		// handle color changes
@@ -49,12 +49,17 @@
 			$.ajax({
 			   type: "POST",
 			   url: "<?php echo $this->Html->url(array("action" => "color"));?>/"+id,
-			   data: "color="+color
+			   data: "color="+color,
+				success: function(html){
+					$currentVersion = html;
+				  }
 			 });
-
-			$currentVersion = "-1";
-			// the the current version to -1 so the page refresn won't get called
 		});
+
+		<?php } ?>
+		//set title of the HTML page
+		$( "title" ).html('<?php echo $project_id . " - " .$name; ?> [<?php echo count($statusOne); ?>,<?php echo count($statusTwo); ?>,<?php echo count($statusThree); ?>]');
+
 
 		// the url can contain a # and a status number, this gives input to right field
 		urlparts = window.location.href.split('#');
@@ -74,14 +79,11 @@
 		  url: "<?php echo $this->Html->url(array("action" => "version",$project_id));?>",
 		  cache: false,
 		  success: function(html){
-
 				if($currentVersion == "-1"){
 					$currentVersion = html;
 				}else if($currentVersion != html){
 					window.location.reload();
 				}
-
-
 		  }
 
 		});
@@ -91,11 +93,13 @@
 	checkVersion();
 </script>
 
-<div class="column title"><h1>todo (<?php echo count($statusOne); ?>)</h1></div>
-<div class="column title"><h1>in progress (<?php echo count($statusTwo); ?>)</h1></div>
-<div class="column title status3"><h1>done (<?php echo count($statusThree); ?>)</h1></div>
+
+
+
 
 <div class="column status1">
+	<div class="title"><h1>todo (<?php echo count($statusOne); ?>)</h1></div>
+	<?php if($auth_level == 2) { ?>
 	<div class="form">
  		<form method="post" action="<?php echo $this->Html->url(array("action" => "add",$project_id,$name));?>">
 			<input type="text" name="data[Todo][text]" class="input todo"/>
@@ -105,13 +109,16 @@
 			<input type="submit" class="button" value="add" />
 		</form>
 	</div>
+	<?php } ?>
 	<ul class="sortable">
 		<?php foreach ($statusOne as $status) { ?>
-			<?php echo $this->Todo->render($status,$project_id,$name); ?>
+			<?php echo $this->Todo->render($status,$project_id,$name,$auth_level); ?>
 		<?php } ?>
 	</ul>
 </div>
 <div class="column status2">
+	<div class="title"><h1>in progress (<?php echo count($statusTwo); ?>)</h1></div>
+	<?php if($auth_level == 2) { ?>
 	<div class="form">
  		<form method="post" action="<?php echo $this->Html->url(array("action" => "add",$project_id,$name));?>">
 			<input type="text" name="data[Todo][text]" class="input todo"/>
@@ -121,20 +128,22 @@
 			<input type="submit" class="button" value="add" />
 		</form>
 	</div>
+	<?php } ?>
 	<ul class="sortable">
 		<?php foreach ($statusTwo as $status) { ?>
-			<?php echo $this->Todo->render($status,$project_id,$name); ?>
+			<?php echo $this->Todo->render($status,$project_id,$name,$auth_level); ?>
 		<?php } ?>
 	</ul>
 </div>
 <div class="column status3">
+	<div class="title status3"><h1>done (<?php echo count($statusThree); ?>)</h1></div>
 	<ul>
 		<?php 
 			$iterator = 0;
 			foreach ($statusThree as $status) { 
 				$iterator++;
 				if($iterator < 10 || $this->Session->read('more') == 1){
-					echo $this->Todo->render($status,$project_id,$name); 
+					echo $this->Todo->render($status,$project_id,$name,$auth_level); 
 				}else{ 
 					?>	<div class="more"><a href="<?php echo $this->Html->url(array("action" => "more"));?>">more...</a></div><?php 
 				break;

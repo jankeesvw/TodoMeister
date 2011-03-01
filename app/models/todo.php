@@ -1,7 +1,7 @@
 <?php
 
 	class Todo extends AppModel {
-	    var $name = 'Todos';
+	    var $name = 'Todo';
 		var $actsAs = array('Revision' => array('ignore'=>array('modified','order')));
 	    var $validate = array(
 		 	'text' => array(

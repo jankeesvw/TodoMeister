@@ -39,7 +39,15 @@
 
 	<body>
 		<div class="header">
-			<h1 class="title"><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>" ><a href="<?php echo $this->Html->url(array("action" => "start"));?>">todomeister</a><abbr> <p>(by <a href="http://www.base42.nl">base42.nl</a>)</p></h1>
+			<h1 class="title">
+				<abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>" >
+					<a href="<?php echo $this->Html->url(array("action" => "start"));?>">todomeister</a>
+				<abbr>
+				<p>
+					<?php echo $html->link($html->image('/img/door_open.png', array('alt' => 'logout')), array('action' => 'logout'),array('escape' => false));	?>
+					(by <a href="http://www.base42.nl">base42.nl</a>)
+				</p>
+			</h1>
 			<?php if(isset($custom_title)){ ?>
 				<h1 class="project_title"><?php echo $custom_title; ?></h1>			
 			<?php }else { ?>

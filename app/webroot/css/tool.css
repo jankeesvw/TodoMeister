@@ -9,7 +9,9 @@ body .background.status3{border-bottom:1px solid #949991;background-color:#c9d5c
 body .background.status2{border-bottom:1px solid #949991;background-color:#cddbed;}
 body .background.status1{border-bottom:1px solid #949991;background-color:#cccccc;}
 body .column{float:left;width:30%;margin-right:35px;font-size:13px;}body .column.logs{width:100%;}body .column.logs li{width:200px;float:left;margin-right:10px;}body .column.logs li .color_picker{cursor:default;}
-body .column.title h1{margin-bottom:10px;font-size:18px;}
+body .column form{margin-bottom:5px;}
+body .column ul{clear:both;}
+body .column .title h1{margin-bottom:10px;font-size:18px;}
 body .column.status3{margin-right:0px;}body .column.status3 .todo{margin-bottom:0px;}
 body .column li{background-color:#ccc;padding-bottom:5px;padding-top:8px;padding-left:20px;padding-right:14px;line-height:20px;display:block;margin-bottom:10px;}body .column li p{font-size:10px;}
 body .column li p.author{font-family:arial;font-style:italic;clear:both;font-size:10px;color:#787878;}
@@ -22,9 +24,10 @@ body .column li a:hover{text-decoration:underline;}
 body .column li .color_picker{display:block;margin-left:-20px;margin-top:-8px;height:50px;width:10px;position:absolute;border-right:1px solid #949991;}
 body .column li.status3 .todo{text-decoration:line-through;}
 body .column .more{text-align:center;font-style:italic;text-decoration:underline;}
-.form{width:100%;margin-bottom:50px;}.form input.button{width:20%;}
+.form{width:100%;margin-bottom:60px;}.form input.button{width:20%;}
 .form input.input{width:80%;}
-input,textarea{padding-left:14px;font-family:arial;padding-right:5px;display:block;float:left;border:1px solid #dedede;border-top:1px solid #eee;border-left:1px solid #eee;font-size:10px;line-height:130%;text-decoration:none;font-weight:bold;color:#565656;padding:5px 10px 6px 7px;height:31px;}input.button,textarea.button{cursor:pointer;background-color:#f5f5f5;width:150px;height:40px;}
-input.input,textarea.input{width:200px;height:40px;}
+p{font-size:11px;font-style:italic;}
+.button input{clear:left;margin-top:10px;}
+input,textarea{padding-left:14px;font-family:arial;padding-right:5px;display:block;float:left;border:1px solid #dedede;border-top:1px solid #eee;border-left:1px solid #eee;font-size:10px;line-height:130%;text-decoration:none;font-weight:bold;color:#565656;padding:5px 10px 6px 7px;height:31px;width:200px;height:40px;}input.button,textarea.button{cursor:pointer;background-color:#f5f5f5;width:150px;height:40px;}
 textarea{height:100px;width:100%;}
-div.label{padding-top:9px;float:left;width:120px;}
+div.label,label{clear:left;padding-top:9px;float:left;width:120px;}
