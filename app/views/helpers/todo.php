@@ -23,19 +23,20 @@
 				}
 				
 				?>
-					<li id="<?php echo $data['Todo']['id']; ?>" class="background status<?php echo $current_status;?>">
+					<li id="<?php echo $data['Todo']['id']; ?>" class="background status<?php echo $current_status;?>">						
 						<input autocomplete="off" id="color1" class="color" type="hidden" name="<?php echo $data['Todo']['id']; ?>" value="<?php echo $data['Todo']['color']; ?>" />
+						<p class="actions"> <?php echo $editlinks; ?> </p>			
 						<p class="todo <?php if($current_status < 3) { echo "editable"; }?>"><?php echo nl2br($data['Todo']['text']); ?></p>
 						<p class="author"><?php echo $data['Todo']['who']; ?> <?php if($current_status < 3){ ?><a href="<?php echo $this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name));?>">(<?php echo $this->RelativeTime->getRelativeTime($data['Todo']['modified']);?> ago)</a><?php }; ?></p>
-						<p class="actions"> <?php echo $editlinks; ?> </p>			
 					</li>
 				<?php
 			}
 			function renderLog($data) {
+			
 				
 				$sinceTime = strtotime($data['Todo']['modified'])-strtotime($data['Todo']['created']);
 				if($sinceTime == 0){
-					$sinceTime = "creation";
+					$sinceTime = date("F j, Y H:i", strtotime($data['Todo']['modified']));
 				}else{
 					$sinceTime = $this->RelativeTime->relativeTime($sinceTime) . " after creation";
 				}

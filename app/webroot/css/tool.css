@@ -16,7 +16,7 @@ body .column li p.author{font-family:arial;font-style:italic;clear:both;font-siz
 body .column li p.todo{font-size:13px;margin-bottom:15px;}body .column li p.todo.editable{cursor:pointer;}
 body .column li p.todo input:text,body .column li p.todo textarea{float:none;}
 body .column li p.todo input{margin-bottom:10px;width:100%;}
-body .column li p.actions{margin-top:-20px;float:right;}
+body .column li p.actions{float:right;}
 body .column li a{color:#787878;font-style:italic;text-decoration:none;}
 body .column li a:hover{text-decoration:underline;}
 body .column li .color_picker{display:block;margin-left:-20px;margin-top:-8px;height:50px;width:10px;position:absolute;border-right:1px solid #949991;}

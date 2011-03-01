@@ -76,7 +76,20 @@ class TodosController extends AppController {
 	function add($project_id,$name){
 		if(!$this->Todo->save($this->data)){
 			$this->Session->setFlash('Error saving todo');
+			$this->redirect(array('action' => 'todolist',$project_id,$name,'#'.$this->data['Todo']['status']));
+			exit;
 		}
+		
+		$items = $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => $this->data['Todo']['status']),'order' => array('order','modified desc')));
+		$iterator = 0;
+		foreach ($items as $item) {
+			if($item['Todo']['order'] != $iterator){
+				$item['Todo']['order'] = $iterator;
+				$this->Todo->save($item);
+			}				
+			$iterator++;
+		}
+		
 		// rediect back to the list with a #status to regain focus
 		$this->redirect(array('action' => 'todolist',$project_id,$name,'#'.$this->data['Todo']['status']));
 		exit;
