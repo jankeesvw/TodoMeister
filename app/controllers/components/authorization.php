@@ -49,13 +49,13 @@ class AuthorizationComponent extends Object {
 			$read_permission_projects = array();
 		}
 	
-		if($entered_password === $currentPassword['Password']['read-write']){
+		if(md5($entered_password) === $currentPassword['Password']['read-write']){
 			//read & write
 			$write_permission_projects = array_merge($write_permission_projects,array($project_id));
 			$write_permission_projects = array_unique($write_permission_projects);
 			$this->Session->write('write',$write_permission_projects);
 			return 2;
-		}else if($entered_password === $currentPassword['Password']['read']){
+		}else if(md5($entered_password) === $currentPassword['Password']['read']){
 			// read
 			$read_permission_projects = array_merge($read_permission_projects,array($project_id));
 			$read_permission_projects = array_unique($read_permission_projects);

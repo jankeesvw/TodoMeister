@@ -100,15 +100,15 @@ class TodosController extends AppController {
 					$this->redirect(array('action' => 'todolist',$project_id,$name));
 					exit;
 				}
-				$current['Password']['read'] = $this->data['Password']['read'];
-				$current['Password']['read-write'] = $this->data['Password']['read-write'];
 				
 				$this->data = $current;
 			}
 			
+			$this->data['Password']['read'] = md5($this->data['Password']['read']);
+			$this->data['Password']['read-write'] = md5($this->data['Password']['read-write']);
+			
 			$this->data['Password']['project_id'] = $project_id;
 			$this->Password->save($this->data);
-			pr($this->data);
 			
 			// redirect back to the list
 			$this->redirect(array('action' => 'todolist',$project_id,$name));
@@ -128,6 +128,7 @@ class TodosController extends AppController {
 	* Fetch the current version information for the todolist (used for AJAX updating)
 	*/
 	function version($project_id){
+		
 		$item = $this->Todo->find('first', array('conditions' => array('project_id' => $project_id),'order' => array('modified DESC')));
 		echo $item['Todo']['modified'];
 		exit;
@@ -137,6 +138,13 @@ class TodosController extends AppController {
 	* Project log
 	*/
 	function project_log($project_id,$name) {
+		if($this->Authorization->checkAuthorization($project_id) < 0){
+			// redirect back to the login page
+			$this->Session->setFlash('This method requires a login');
+			$this->redirect(array('action' => 'login',$project_id,$name));
+			exit;
+		}
+	
 		$this->set('project_id',$project_id); 
 		$this->set('name',$name);
 
@@ -186,6 +194,13 @@ class TodosController extends AppController {
 	* See the log of one item
 	*/
 	function log_item($id,$project_id,$name){
+		if($this->Authorization->checkAuthorization($project_id) < 0){
+			// redirect back to the login page
+			$this->Session->setFlash('This method requires a login');
+			$this->redirect(array('action' => 'login',$project_id,$name));
+			exit;
+		}
+		
 		$this->Todo->id = $id;
 		$this->set('current', $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order'))));
 		$this->set('history', $this->Todo->revisions());

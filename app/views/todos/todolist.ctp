@@ -3,17 +3,16 @@
 	$(function() {
 		// endable the sortable behavior
 		<?php if($auth_level == 2) { ?>
-		$( ".sortable" ).sortable();
-
 		// add a callback to the sortable behavior
 		$( ".sortable" ).sortable({
+		   containment: 'parent',
 		   update: function(event, ui) {
 			$.ajax({
 			   type: "POST",
 			   url: "<?php echo $this->Html->url(array("action" => "order"));?>",
 			   data: "item="+ui.item.attr('id')+"&order="+$(this).sortable( "toArray" ),
 				success: function(html){
-					$currentVersion = html;
+					$currentVersion = "-1";
 				  }
 			 });
 			}
@@ -51,7 +50,7 @@
 			   url: "<?php echo $this->Html->url(array("action" => "color"));?>/"+id,
 			   data: "color="+color,
 				success: function(html){
-					$currentVersion = html;
+					$currentVersion = "-1";
 				  }
 			 });
 		});
