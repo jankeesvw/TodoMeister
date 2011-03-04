@@ -2,7 +2,7 @@
 
 	class Todo extends AppModel {
 	    var $name = 'Todo';
-		var $actsAs = array('Revision' => array('ignore'=>array('modified','order')));
+		var $actsAs = array('Revision' => array('ignore'=>array('modified','order','color')));
 	    var $validate = array(
 		 	'text' => array(
 	            'rule' => array('minLength', '1')

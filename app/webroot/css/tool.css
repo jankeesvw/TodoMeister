@@ -2,9 +2,12 @@ body{padding:20px 10px 20px 10px;font-family:arial;line-height:20px;letter-spaci
 body .error{color:#f00;font-style:italic;padding-left:10px;width:40%;margin-top:20px;margin-bottom:20px;}
 body a{color:#2b2b2b;}
 body .header{margin-bottom:10px;}body .header a{text-decoration:none;}
+body .header a:hover{text-decoration:underline;}
 body .header p{display:inline;font-style:italic;font-size:13px;font-family:times;}
-body .header h1.title{float:right;font-size:30px;clear:both;}
-body h1{font-family:arial;font-size:40px;line-height:40px;letter-spacing:-1px;color:#444;margin:0 0 0 0;padding:0 0 0 0;font-weight:100;}
+body .header .subline{margin-top:-13px;clear:both;float:left;}
+body .header h1.title{float:right;font-size:30px;}body .header h1.title .subline{float:right;}
+body .header h1.project_title{float:left;font-size:30px;clear:both;}
+body h1{font-family:arial;font-size:40px;line-height:40px;letter-spacing:0px;color:#444;margin:0 0 0 0;padding:0 0 0 0;font-weight:100;}
 body .column{float:left;width:32.6%;margin-right:1%;font-size:13px;}body .column .dynamic{display:none;}
 body .column.status1 .dynamic.link_status_1{display:inline;}
 body .column.status2 .dynamic.link_status_2{display:inline;}

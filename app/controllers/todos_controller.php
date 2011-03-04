@@ -41,23 +41,29 @@ class TodosController extends AppController {
 		$this->set('statusThree', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '3'),'order' => array('order','modified desc'))));
 		
 		// create a custom title for the page
-		$this->set('title_for_layout', 'todomeister list'); 
 		App::import('Helper', 'Html');
 		$html = new HtmlHelper();
 		
-		$loglink = $html->link('show log for project', array('action' => 'project_log',$project_id,$name));
+		$loglink = "<br/><p class=\"subline\">";
+		// Editing as Jankees. Not Jankees? Change name here...
+		$loglink .= "Editing as ". $name .". Not ". $name . "? " . $html->link("Change here...", array("action"=>"start",$project_id),array('alt' => 'logout'));
+		$loglink .= "</p>";
 		
 		if($auth_level > 1){
+			
+			$locklink = $html->link($html->image('/img/book_open.png', array('alt' => 'edit password project')), array('action' => 'project_log',$project_id,$name),array('escape' => false)) . " ";
+			
 			if($this->Password->find('first', array('conditions' => array('project_id' => $project_id)))){
-				$locklink = $html->link($html->image('/img/lock_edit.png', array('alt' => 'edit password project')), array('action' => 'password',$project_id,$name),array('escape' => false));	
+				$locklink .= $html->link($html->image('/img/lock_edit.png', array('alt' => 'edit password project')), array('action' => 'password',$project_id,$name),array('escape' => false));	
 			}else{
-				$locklink = $html->link($html->image('/img/lock_add.png', array('alt' => 'add password project')), array('action' => 'password',$project_id,$name),array('escape' => false));	
+				$locklink .= $html->link($html->image('/img/lock_add.png', array('alt' => 'add password project')), array('action' => 'password',$project_id,$name),array('escape' => false));	
 			}
 		}else{
 			$locklink = $html->link($html->image('/img/pencil_delete.png', array('alt' => 'read only')), array('action' => 'login',$project_id,$name),array('escape' => false));	
 		}
-				
-		$this->set('custom_title', $project_id.'<p> '.$locklink . ' ' .$loglink.'</p>');
+		
+		$this->set('title_for_layout', $project_id.' - '.$name. ' on Todomeister'); 		
+		$this->set('custom_title', $project_id.' '.$locklink .$loglink);
 		$this->set('auth_level', $auth_level);
 	}
 	
