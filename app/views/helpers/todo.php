@@ -35,7 +35,8 @@
 				?>
 					<li id="<?php echo $data['Todo']['id']; ?>" class="background">						
 						<input autocomplete="off" id="color1" class="color" type="hidden" name="<?php echo $data['Todo']['id']; ?>" value="<?php echo $data['Todo']['color']; ?>" />
-						<p class="actions"> <?php echo $editlinks; ?> </p>			
+						<p class="actions"> <?php echo $editlinks; ?> </p>
+						<p class="original"><?php echo $data['Todo']['text']; ?></p>
 						<p class="todo <?php if($current_status < 3) { echo "editable"; }?>"><?php echo nl2br($data['Todo']['text']); ?></p>
 						<p class="author"><?php echo $date; ?></p>
 					</li>

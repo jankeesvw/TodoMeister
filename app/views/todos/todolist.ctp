@@ -4,12 +4,22 @@
 	});
 	
 
+	// (https?|ftps?|mailto)://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?
+
+
 	// JQuery on document readu function
 	$(function() {
 		
 		//create color picker	
 		$('.color').colorPicker();
 		updateColorPickers();
+		
+		$('p.todo').each(function (index, domEle) {
+			content = $(domEle).html(); 
+			content =  content.replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,"<a href='$1' target='_blank'>$1</a>");
+			$(domEle).html(content)
+		});
+		
 		
 		// endable the sortable behavior
 		<?php if($auth_level == 2) { ?>
@@ -46,8 +56,7 @@
 			if($(this).hasClass('editable')){
 				$(this).removeClass('editable');
 				id = $(this).parent().attr('id');
-				text = $(this).html();
-				text = text.replace(/<br>/gi, "")
+				text = $(this).parent().find('.original').html();
 				replacetext = '';
 				replacetext += '<form method="post" action="<?php echo $this->Html->url(array("action" => "update",$project_id,$name));?>">';
 				replacetext += '<textarea name="todo" type="text">'+text+'</textarea>';

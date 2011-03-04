@@ -1,4 +1,4 @@
-body{padding:20px 10px 20px 10px;font-family:arial;line-height:20px;letter-spacing:0px;color:#444444;}body .hr{background-color:#444444;height:1px;margin-top:10px;margin-bottom:10px;clear:both;}
+body{padding:5px 10px 40px 10px;font-family:arial;line-height:20px;letter-spacing:0px;color:#444444;}body .hr{background-color:#444444;height:1px;margin-top:10px;margin-bottom:10px;clear:both;}
 body .error{color:#f00;font-style:italic;padding-left:10px;width:40%;margin-top:20px;margin-bottom:20px;}
 body a{color:#2b2b2b;}
 body .header{margin-bottom:10px;}body .header a{text-decoration:none;}
@@ -24,9 +24,11 @@ body .column .title h1{margin-bottom:10px;font-size:18px;}
 body .column.status3{margin-right:0px;}body .column.status3 .todo{margin-bottom:0px;}
 body .column li{background-color:#ccc;padding-bottom:5px;padding-top:8px;padding-left:20px;padding-right:14px;line-height:20px;display:block;margin-bottom:10px;}body .column li p{font-size:10px;}
 body .column li p.author{font-family:arial;font-style:italic;clear:both;font-size:10px;color:#787878;}
-body .column li p.todo{font-size:13px;margin-bottom:15px;}body .column li p.todo.editable{cursor:pointer;}
+body .column li p.todo{word-wrap:break-word;font-size:13px;margin-bottom:15px;}body .column li p.todo.editable{cursor:pointer;}
 body .column li p.todo input:text,body .column li p.todo textarea{float:none;}
 body .column li p.todo input{margin-bottom:10px;width:100%;}
+body .column li p.todo a{text-decoration:underline;}
+body .column li p.original{display:none;}
 body .column li p.actions{float:right;}
 body .column li a{color:#787878;font-style:italic;text-decoration:none;}
 body .column li a:hover{text-decoration:underline;}
