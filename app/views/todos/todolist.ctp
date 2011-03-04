@@ -1,22 +1,39 @@
 <script type="text/javascript">
 	// JQuery on document readu function
 	$(function() {
+		
+		//create color picker	
+		$('.color').colorPicker();
+		updateColorPickers();
+		
 		// endable the sortable behavior
 		<?php if($auth_level == 2) { ?>
-		// add a callback to the sortable behavior
-		$( ".sortable" ).sortable({
-		   containment: 'parent',
-		   update: function(event, ui) {
-			$.ajax({
-			   type: "POST",
-			   url: "<?php echo $this->Html->url(array("action" => "order"));?>",
-			   data: "item="+ui.item.attr('id')+"&order="+$(this).sortable( "toArray" ),
-				success: function(html){
-					$currentVersion = "-1";
-				  }
-			 });
-			}
 
+		// add the sortable behavior
+		$( ".sortable" ).sortable({
+		   	connectWith: ".sortable",
+		 	placeholder: "sortable-placeholder",
+		
+		   	update: function(event, ui) {
+				updateColorPickers();
+				
+				// update the time in the item
+				ui.item.find("#time").html("(0 minutes ago)");
+				
+				data = '';
+				$('ul.sortable').each(function(index) {
+				    data += '&column'+ (index+1) + '=' + $(this).sortable( "toArray" );
+				});
+				
+				$.ajax({
+					type: "POST",
+					url: "<?php echo $this->Html->url(array("action" => "order",$project_id));?>",
+					data: "item="+ui.item.attr('id') + data,
+					success: function(html){
+						$currentVersion = "-1";
+					}
+				});
+			}
 		});
 
 		// edit a todoitem when a user clicks the text
@@ -38,8 +55,6 @@
 			};
 		});
 
-
-		
 		// handle color changes
 		$('.color').change(function() {			
 			var id =  $(this).attr('name');
@@ -136,7 +151,7 @@
 </div>
 <div class="column status3">
 	<div class="title status3"><h1>done (<?php echo count($statusThree); ?>)</h1></div>
-	<ul>
+	<ul class="sortable">
 		<?php 
 			$iterator = 0;
 			foreach ($statusThree as $status) { 

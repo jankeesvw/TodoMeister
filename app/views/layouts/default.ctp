@@ -19,11 +19,9 @@
 		if (isset($javascript)){
 	?>
 	<script>
-		$.fn.colorPicker.defaultColors =  ['BE7CBA','6460AF','83AFDC','3A804A','3A804A','E9EB4A','F4AE48','EB3D36','A8773E','000000'];
+		$.fn.colorPicker.defaultColors =  ['BE7CBA','6460AF','83AFDC','3A804A','3A804A','E9EB4A','F4AE48','EB3D36','A8773E','000000','FFFFFF','CCCCCC'];
 		
 	    $(function() {
-			//create color picker	
-			$('.color').colorPicker();
 			updateColorPickers();
 		});
 		

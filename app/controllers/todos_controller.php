@@ -119,8 +119,6 @@ class TodosController extends AppController {
 			$this->set('project_id', $project_id);
 
 		}
-		
-
 	}
 	
 	
@@ -149,7 +147,7 @@ class TodosController extends AppController {
 		$this->set('name',$name);
 
 		// get all revisions based on one project
-		$this->set('revs',$this->Todo->ShadowModel->find('all',array('conditions' => array('project_id' => $project_id),'order' => array('id desc, modified desc'))));
+		$this->set('revs',$this->Todo->ShadowModel->find('all',array('conditions' => array('project_id' => $project_id),'order' => array('id desc, modified'))));
 		
 		// create a custom title for the page
 		App::import('Helper', 'Html');
@@ -228,7 +226,6 @@ class TodosController extends AppController {
 		unset($item['Todo']['modified']);
 		$this->Todo->save($item);
 		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));		
-		echo $item['Todo']['modified'];	
 		exit;
 	}
 	
@@ -236,28 +233,54 @@ class TodosController extends AppController {
 	* Update the order of all todo items 
 	* TODO: this can be done more efficiently
 	*/
-	function order(){
+	function order($project_id){
 		if($this->Authorization->checkAuthorization($project_id) < 2){
 			// redirect back to the login page
 			$this->Session->setFlash('This method requires a login');
 			$this->redirect(array('action' => 'login',$project_id,$name));
 			exit;
 		}
-		
-		$ids = split(',',$_POST['order']);
-		$dragged_item_id = $_POST['item'];
-		$i = 0;
-		foreach ($ids as $id) {
-			$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
-			$item['Todo']['order'] = $i;
-			if($item['Todo']['id'] === $dragged_item_id){
-				unset($item['Todo']['modified']);
+
+		$current_item_id = $_POST['item'];
+		for ($status=1; $status < 4; $status++) { 
+			// get the post variable for the current status
+			$idString = $_POST['column'.$status];
+
+			// if there is no todo in the string please continue
+			if(strlen($idString) < 1) continue;
+			
+			// split the ids
+			$ids = split(',',$idString);
+			
+			// first item has order 0
+			$order_number = 0;
+			foreach ($ids as $id) {
+
+				// get the item from the database (this could be optimized!)
+				$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
+				
+				//if it's a valid item go on
+				if($item){
+					// if the order or the status changed go on
+					if($item['Todo']['order'] != $order_number || $item['Todo']['status'] != $status){
+
+						// set the order and the status
+						$item['Todo']['order'] = $order_number;
+						$item['Todo']['status'] = $status;
+
+						// if this item is the dragged item, reset the modified date
+						if($item['Todo']['id'] === $current_item_id){
+							unset($item['Todo']['modified']);
+						}
+						
+						// save it to the database
+						$this->Todo->save($item);
+					}
+				}
+				$order_number++;
 			}
-			$this->Todo->save($item);
-			$i++;
+			
 		}
-		$item = $this->Todo->find('first', array('conditions' => array('id' => $dragged_item_id),'order' => array('order')));
-		echo $item['Todo']['modified'];
 		exit;
 	}
 	
