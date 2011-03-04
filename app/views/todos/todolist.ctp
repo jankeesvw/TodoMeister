@@ -1,4 +1,9 @@
 <script type="text/javascript">
+	$(window).resize(function() {
+	  updateColorPickers();
+	});
+	
+
 	// JQuery on document readu function
 	$(function() {
 		

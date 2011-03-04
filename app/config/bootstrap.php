@@ -1,2 +1,2 @@
 <?php
-Configure::write('TodoMeister.version','1.3');
+Configure::write('TodoMeister.version','1.3a');
