@@ -1,15 +1,28 @@
-<?php if($project_id === ""){ ?>
-You are probably on this page because you wanted to create or see a todolist.. Are you looking for a login or register button?<br>
-That's not how todomeister works :). The main goal of Todomeister is to keep it simple! So no login and registration!!<br>
-<br>
-Just pick a project name, give your name and get started<br><br>
-<?php }else{ ?>
-Please fill in your name below to work on <?php echo $project_id; ?><br><br>	
-<?php } ?>
-
-<form method="post" action="<?php echo $this->Html->url(array("action" => "start"));?>">
-	<div class="label">Project name:</div><input type="text" value="<?php echo $project_id; ?>" name="projectname" class="start input"/><br><br>
-	<div class="label">Your name:</div><input type="text" name="username" class="start input"/><br><br>
+<div id="home">
+	<?php if($project_id === ""){ ?>
+	<h2>Welcome to <em><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>">Todomeister</abbr></em></h2>	
+	Todomeister is the simplest way to create <ins>collaborative todo lists</ins> to <ins>share</ins> with your team. <br><br>
+	The main goal of Todomeister is to keep it simple! So <ins>no login</ins> and <ins>no registration</ins> required.<br>
 	<br>
-	<input type="submit" class="button" value="Let's get started" />
-</form>
+	Just pick a project name fill in your name and get started<br>
+	<?php }else{ ?>
+	Please fill in <strong>your name</strong> below to work on: <br><br><ins><?php echo $project_id; ?></ins><br>
+	
+	<script>
+		$(function() {
+			$('#username').focus();
+		});
+	</script>
+	
+	<?php } ?>
+	<form method="post" action="<?php echo $this->Html->url(array("action" => "start"));?>">
+		<label for="projectname">Project name:</label><input type="text" name="projectname" value="<?php echo $project_id; ?>" class="start input" id="projectname">
+		<label for="username">Your name:</label><input type="input" name="username" id="username">
+		<br>
+		<input type="submit" class="button" value="Let's get started">
+	</form>
+	<?php if(Configure::read('TodoMeister.build_index') === true){ ?>
+		<br>
+		<a href="<?php echo $this->Html->url(array("action" => "list_index"));?>">todo list index</a>
+	<?php } ?>
+</div>

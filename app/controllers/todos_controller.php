@@ -11,14 +11,41 @@ class TodosController extends AppController {
 	*/
 	function start($project_id = ""){
 		// form is posted redirect to todolist
-		if(isset($_POST['projectname']) && isset($_POST['username'])){
+		
+		if(isset($_POST['projectname']) && isset($_POST['username']) && $_POST['projectname'] ==! "" && $_POST['username']  ==! ""){
 			$this->redirect(array('action' => 'todolist',$_POST['projectname'],$_POST['username']));
 			exit;
 		}
 		
+		if(isset($_POST['projectname']) && $_POST['projectname'] ==! ""){
+			$project_id = $_POST['projectname'];
+			$this->Session->setFlash('Please fill in your name.');
+		}else if(isset($_POST['projectname']) && isset($_POST['username']) && $_POST['projectname'] === "" && $_POST['username']  === ""){
+			$this->Session->setFlash('Please fill in your name and a project name.');
+		}
+		
 		$this->set('project_id',$project_id);
 		$this->set('title_for_layout', 'Welcome to todomeister'); 
+		$this->layout = 'centered';
 	}
+	
+
+	function list_index(){
+		if(Configure::read('TodoMeister.build_index') !== true){
+			$this->Session->setFlash('Sorry, that\'s not allowed');
+			$this->redirect(array('action' => 'ahahah'));
+			exit;
+		}
+		$lists = $this->Todo->find('all', array('fields' => 'count(id) as count, project_id','group'=>'project_id','order'=>'project_id'));
+		$this->set('lists', $lists);
+		
+		$this->layout = 'centered';
+	}
+	
+	function ahahah(){
+		$this->layout = 'empty';	
+	}
+	
 	
 	/**
 	* Main todo list page
@@ -49,26 +76,27 @@ class TodosController extends AppController {
 		App::import('Helper', 'Html');
 		$html = new HtmlHelper();
 		
-		$loglink = "<br/><p class=\"subline\">";
 		// Editing as Jankees. Not Jankees? Change name here...
-		$loglink .= "Editing as ". $name .". Not ". $name . "? " . $html->link("Change here...", array("action"=>"start",$project_id));
-		$loglink .= "</p>";
+		$sublink = "Editing as ". $name .". Not ". $name . "? " . $html->link("Change here...", array("action"=>"start",$project_id));
 		
 		if($auth_level > 1){
 			
-			$locklink = $html->link($html->image('/img/book_open.png',array('title' => 'open project log')), array('action' => 'project_log',$project_id,$name),array('escape' => false)) . " ";
+			$locklink = $html->link($html->image($html->url('/img/book_open.png'),array('title' => 'open project log')), array('action' => 'project_log',$project_id,$name),array('escape' => false));
 			
 			if($this->Password->find('first', array('conditions' => array('project_id' => $project_id)))){
-				$locklink .= $html->link($html->image('/img/lock_edit.png', array('title' => 'change password')), array('action' => 'password',$project_id,$name),array('escape' => false));	
+				$locklink .= $html->link($html->image($html->url('/img/lock_edit.png'), array('title' => 'change password')), array('action' => 'password',$project_id,$name),array('escape' => false));	
 			}else{
-				$locklink .= $html->link($html->image('/img/lock_add.png', array('title' => 'add password protection')), array('action' => 'password',$project_id,$name),array('escape' => false));	
+				$locklink .= $html->link($html->image($html->url('/img/lock_add.png'), array('title' => 'add password protection')), array('action' => 'password',$project_id,$name),array('escape' => false));	
 			}
 		}else{
-			$locklink = $html->link($html->image('/img/pencil_delete.png', array('title' => 'read only access')), array('action' => 'login',$project_id,$name),array('escape' => false));	
+			$locklink = $html->link($html->image($html->url('/img/pencil_delete.png'), array('title' => 'read only access')), array('action' => 'login',$project_id,$name),array('escape' => false));	
 		}
 		
 		$this->set('title_for_layout', $project_id.' - '.$name. ' on Todomeister'); 		
-		$this->set('custom_title', $project_id.' '.$locklink .$loglink);
+		
+		$this->set('custom_title', $project_id.$locklink);
+		$this->set('custom_sub_title', $sublink);
+		
 		$this->set('auth_level', $auth_level);
 	}
 	
@@ -78,21 +106,36 @@ class TodosController extends AppController {
 		$this->redirect(array('action' => 'start'));
 		exit;
 	}
-	function login($project_id,$name) {
+	function login($project_id,$name = "") {
 		if($this->data){
 			if($this->Authorization->doLogin($project_id,$this->data['Password']['password']) > 0){
 				$this->redirect(array('action' => 'todolist',$project_id,$name));
 				exit;
 			}else{
-				$this->Session->setFlash('Invalid password!');
+				$this->Session->setFlash('Sorry, invalid password!');
 				$this->data['Password']['password'] = "";
 			}		
 		}
 		$this->set('project_id',$project_id); 
 		$this->set('name',$name);
-		
+		$this->layout = 'centered';
 	}
 	
+	function remove_password($project_id,$name){
+		if($this->Authorization->checkAuthorization($project_id) < 2){
+			// redirect back to the login page
+			$this->Session->setFlash('This method requires a login');
+			$this->redirect(array('action' => 'login',$project_id,$name));
+			exit;
+		}		
+		
+		$current = $this->Password->find('first', array('conditions' => array('project_id' => $project_id)));
+		if($current){
+			$this->Password->delete($current['Password']['id']);
+		}
+		
+		$this->redirect(array('action' => 'todolist',$project_id,$name));		
+	}
 	
 	function password($project_id,$name){
 		if($this->Authorization->checkAuthorization($project_id) < 2){
@@ -130,6 +173,7 @@ class TodosController extends AppController {
 			$this->set('project_id', $project_id);
 
 		}
+		$this->layout = 'centered';	
 	}
 	
 	
@@ -164,7 +208,8 @@ class TodosController extends AppController {
 		App::import('Helper', 'Html');
 		$html = new HtmlHelper();		
 		$this->set('custom_title', 'Project log for: <a href="'.$html->url(array("action" => "todolist",$project_id,$name)).'">'.$project_id.'</a>');
-		$this->set('title_for_layout', 'Project log for: '.$project_id); 
+		$this->set('title_for_layout', 'Project log for: '.$project_id);
+		
 	}
 
 	/**
@@ -179,7 +224,7 @@ class TodosController extends AppController {
 		}
 		
 		if(!$this->Todo->save($this->data)){
-			$this->Session->setFlash('Error saving todo');
+			$this->Session->setFlash('Error saving todo, did you enter a text?');
 			$this->redirect(array('action' => 'todolist',$project_id,$name,'#'.$this->data['Todo']['status']));
 			exit;
 		}
@@ -224,7 +269,9 @@ class TodosController extends AppController {
 	* Update the color of one Todo item
 	*/
 	function color($id){
-		if($this->Authorization->checkAuthorization($project_id) < 2){
+		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
+
+		if($this->Authorization->checkAuthorization($item['Todo']['project_id']) < 2){
 			// redirect back to the login page
 			$this->Session->setFlash('This method requires a login');
 			$this->redirect(array('action' => 'login',$project_id,$name));
@@ -232,7 +279,7 @@ class TodosController extends AppController {
 		}
 		
 		$color = $_POST['color'];
-		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
+
 		$item['Todo']['color'] = $color;
 		unset($item['Todo']['modified']);
 		$this->Todo->save($item);

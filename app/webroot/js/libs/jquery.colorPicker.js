@@ -18,7 +18,7 @@
   
   buildPicker = function(element){
     //build color picker
-    control = $("<div class='color_picker'>&nbsp;</div>")
+    control = $("<div class='color'>&nbsp;</div>")
     control.css('background-color', $(element).val());
     
     //bind click event to color picker
@@ -30,7 +30,7 @@
     //add even listener to input box
     $(element).bind("change", function() {
       selectedValue = toHex($(element).val());
-      $(element).next(".color_picker").css("background-color", selectedValue);
+      $(element).next(".color").css("background-color", selectedValue);
     });
     
     //hide the input box
