@@ -37,7 +37,7 @@ $(function() {
 
 function resizeColorBlocks(){
   $('.color').each(function(index) {
-	$(this).height($(this).parent().first().outerHeight());
+	$(this).height($(this).parent().first().outerHeight()-1);
   });
 }
 

@@ -2,7 +2,8 @@
 	<?php if($project_id === ""){ ?>
 		<h2>Welcome to <em><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>">Todomeister</abbr></em></h2>	
 		Todomeister is the simplest way to create <ins>collaborative todo lists</ins> to <ins>share</ins> with your team. <br><br>
-		The main goal of Todomeister is to keep it simple! So <ins>no login</ins> and <ins>no registration</ins> required.<br>
+		The main goal of Todomeister is to keep it simple!<br>
+		So <ins>no login</ins> and <ins>no registration</ins> required.<br>
 		<br>
 		Just pick a project name fill in your name and get started<br>
 		<script>
@@ -40,6 +41,7 @@
 </div>
 <script>
 	var timeOut;
+	var lastname;
 	$(function() {
 		$('#projectname').keyup(function() {
 
@@ -55,6 +57,15 @@
 		});
 		
 		function checkAvailablity(){
+			if($('#projectname').attr('value') == ""){
+				$('#project_name_availability').find('#available').addClass('hidden');			
+				$('#project_name_availability').find('#loading').addClass('hidden');						
+				$('#project_name_availability').find('#taken').addClass('hidden');
+				return;
+			}
+			
+			lastname = $('#projectname').attr('value');
+			
 			$('#project_name_availability').find('#taken').addClass('hidden');			
 			$('#project_name_availability').find('#available').addClass('hidden');			
 			$('#project_name_availability').find('#loading').removeClass('hidden');

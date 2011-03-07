@@ -25,7 +25,7 @@ class TodosController extends AppController {
 		}
 		
 		$this->set('project_id',$project_id);
-		$this->set('title_for_layout', 'Welcome to todomeister'); 
+		$this->set('title_for_layout', 'Todomeister'); 
 		$this->layout = 'centered';
 	}
 	

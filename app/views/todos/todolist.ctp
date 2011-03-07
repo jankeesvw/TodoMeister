@@ -6,6 +6,7 @@
 	$js_vars .= "var color_update_url = '".$this->Html->url(array("action" => "color"))."';";
 	$js_vars .= "var text_update_url = '".$this->Html->url(array("action" => "update",$project_id,$name))."';";
 	$js_vars .= "var order_update_url = '".$this->Html->url(array("action" => "order",$project_id,$name))."';";	
+	$js_vars .= "var user_name = '".$name."';";	
 
 	echo $this->Javascript->codeBlock($js_vars); 
 

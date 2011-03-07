@@ -41,9 +41,9 @@
 				if($auth_level < 2) $editlinks = ""; 
 				
 				$date = "";
-				$date .= "<span>";
+				$date .= "<span id=\"user\">";
 				$date .= $data['Todo']['who'];
-				$date .= " </span>";
+				$date .= "</span> ";
 				$date .= "<span class=\"statusBased visibleOnStatus1 visibleOnStatus2\">";
 				$date .= "<a id=\"time\" href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">(".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</a>";
 				$date .= "</span>";

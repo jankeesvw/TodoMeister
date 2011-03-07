@@ -12,10 +12,9 @@ $(function() {
 		
 			// update the time in the item
 			ui.item.find("#time").html("(0 minutes ago)");
+			ui.item.find("#user").html(user_name);
 			
 			$('.column').each(function(index) {
-
-				
 				var totalNumberTodos = $(this).find('li').length;
 				more = $(this).find('div.more');
 				if(more.length > 0){
@@ -24,12 +23,13 @@ $(function() {
 					$(this).find('.numberOfTodos').html(totalNumberTodos);
 				}
 			});
-		
+
+			
+
 			data = '';
 			$('ul.sortable').each(function(index) {
 			    data += '&column'+ (index+1) + '=' + $(this).sortable( "toArray" );
 			});
-		
 			$.ajax({
 				type: "POST",
 				url: order_update_url,

@@ -14,7 +14,10 @@
   <meta name="author" content="Jankees van Woezik, Base 42, @jankeesvw">
 
   <link rel="shortcut icon" href="<?php echo $this->Html->url("/favicon.ico");?>">
-  <link rel="apple-touch-icon" href="<?php echo $this->Html->url("/apple-touch-icon.png");?>">
+
+  <link rel="apple-touch-icon-precomposed" href="<?php echo $this->Html->url("/apple-touch-icon-57x57.png");?>">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->Html->url("/apple-touch-icon-72x72.png");?>">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->Html->url("/apple-touch-icon-114x114.png");?>">
 
 <?php
  	echo $html->css('style.css?v=2');

@@ -2,9 +2,9 @@ body.centered, #html_centered {
   background-color: #cccccc;
 }
 body {
-  font-size: 11px;
+  font-size: 10px;
   padding: 15px 10px 40px 10px;
-  font-family: arial;
+  font-family: verdana;
   line-height: 20px;
   letter-spacing: 0px;
   color: #444444;
@@ -27,7 +27,7 @@ body #project_name_availability {
   float: left;
   padding-left: 12px;
   padding-top: 19px;
-  width: 90px;
+  width: 95px;
 }
 body #project_name_availability img {
   float: left;
@@ -40,8 +40,8 @@ body #project_name_availability p {
 body ins {
   background-color: #ffff99;
   color: #444444;
-  font-family: times;
-  font-size: 1.3em;
+  font-family: verdana;
+  font-size: 1.1em;
   font-style: italic;
   padding: 3px;
   text-decoration: none;
@@ -77,8 +77,8 @@ body abbr {
   border: 0px;
 }
 body sub {
-  font-family: times;
-  font-size: 14px;
+  font-family: verdana;
+  font-size: 1em;
   font-style: italic;
 }
 body .right {
@@ -115,7 +115,7 @@ body .column .more {
   text-align: center;
   font-style: italic;
   text-decoration: underline;
-  font-family: times;
+  font-family: verdana;
   font-size: 16px;
 }
 body .sortablePlaceholder {
@@ -127,6 +127,7 @@ body .todo {
   background-color: #f00;
   padding: 10px 15px 10px 10px;
   border-bottom: 1px solid #949991;
+  border-right: 1px solid #949991;
   word-wrap: break-word;
   margin-bottom: 5px;
 }
@@ -136,12 +137,13 @@ body .todo .color {
   width: 10px;
   background-color: #DDD;
   float: left;
+  border-bottom: 1px solid #949991;
   border-right: 1px solid #949991;
   cursor: pointer;
 }
 body .todo sub {
-  font-family: arial;
-  font-size: 10px;
+  font-family: verdana;
+  font-size: 0.9em;
   font-weight: 400;
   font-style: italic;
   color: #787878;
@@ -164,7 +166,7 @@ body .status2 .todo, body .status2 .sortablePlaceholder {
 }
 body .status3 .todo, body .status3 .sortablePlaceholder {
   background-color: #c9d5c6;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 body .status3 .todo p, body .status3 .sortablePlaceholder p {
   text-decoration: line-through;
@@ -177,7 +179,7 @@ body .logitem {
 body .error {
   background-color: #cc0000;
   color: #fff;
-  font-family: times;
+  font-family: verdana;
   font-size: 16px;
   font-style: italic;
   padding: 10px;
@@ -206,11 +208,11 @@ body #centered {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 300px;
+  width: 320px;
   min-height: 40px;
   padding: 30px;
   margin-top: -50px;
-  margin-left: -150px;
+  margin-left: -160px;
   background-color: #ffffff;
   border: 1px solid #949991;
   -webkit-border-radius: 8px;
@@ -244,17 +246,23 @@ body .button input {
   clear: left;
   margin-top: 10px;
 }
+body#todomeister input, body#todomeister textarea {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
 body input, body textarea {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  font-family: arial;
+  font-family: verdana;
   border: 1px solid #dedede;
   font-size: 13px;
   height: 38px;
   padding: 2px 15px 2px 15px;
   margin: 5px 0px 0px 0px;
   display: block;
+  outline: 0 none;
   -webkit-appearance: none;
 }
 body input[type="submit"], body textarea[type="submit"] {
