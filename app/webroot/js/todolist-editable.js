@@ -3,7 +3,6 @@ $(function() {
 	 	placeholder: "sortablePlaceholder",
 	   	connectWith: ".sortable",
 
-
 	   	update: function(event, ui) {
 			resizeColorBlocks();
 		
@@ -32,6 +31,7 @@ $(function() {
 			});
 		}
 	});
+	
 	$('.edit_button').click(function() {
 		editElement($(this).parent().parent().parent());
 	});
@@ -63,6 +63,7 @@ $(function() {
 	$.fn.colorPicker.defaultColors =  ['BE7CBA','6460AF','83AFDC','3A804A','E9EB4A','F4AE48','EB3D36','A8773E','000000','FF00FF','CCCCCC'];
 
 	$('.color_picker').colorPicker();
+	
 	resizeColorBlocks();
 	
 	// handle color changes
