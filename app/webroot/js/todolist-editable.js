@@ -59,19 +59,36 @@ $(function() {
 			item.removeClass('editable');
 			id = item.attr('id');
 			originaltext = item.find('.original').html();
-			replacetext = '';
+			
+			replacetext = '<div class="form">';
 			replacetext += '<form method="post" action="'+text_update_url+'">';
 			replacetext += '<textarea name="todo" type="text">'+originaltext+'</textarea>';
 			replacetext += '<input name="id" type="hidden" value="'+id+'">';
-			replacetext += '<input style="width: 100%;" type="submit" value="save" / >';
+			replacetext += '<div class="twinForm">';
+			replacetext += '<input style="width: 50%; left: 0%;" type="button" class="cancel" value="cancel">';
+			replacetext += '<input style="width: 50%;" type="submit" value="save">';
+			replacetext += '</div>';
 			replacetext += '</form>';
-			item.children('p').html(replacetext);
+			replacetext += '</div>';
+			item.children('p.text').before(replacetext);
+			
+			item.find('.cancel').click(function() {
+				item = $(this).parent().parent().parent().parent();
+				item.children('p.text').show();
+				item.children('.actions').show();
+				item.children('.footer').show();
+				item.children('div.form').remove();
+				item.addClass('editable');
+				$('body').removeClass('editing');
+				resizeColorBlocks();
+			});
+			
+			item.children('p.text').hide();
 			item.children('.actions').hide();
 			item.children('.footer').hide();
 			resizeColorBlocks();
 		};
 	}
-
 	
 	$.fn.colorPicker.defaultColors =  ['BE7CBA','6460AF','83AFDC','3A804A','E9EB4A','F4AE48','EB3D36','A8773E','000000','FF00FF','CCCCCC'];
 

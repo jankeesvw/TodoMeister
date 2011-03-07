@@ -1,0 +1,31 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+/* TEAM */
+  <your title>: Jankees van Woezik
+  Site: Base42
+  Twitter: @jankeesvw
+  Location: Netherlands
+
+/* THANKS */
+Timo Kuilder (Logo)
+Eric-Paul LeCluse
+Rowan Zajkowski
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Modernizr, jQuery, Boilerplate
+
+
+     ...     ..                     .x+=:.                                             
+  .=*8888x <"?88h.                 z`    ^%                     xeee      .--~*teu.    
+ X>  '8888H> '8888                    .   <k                   d888R     dF     988Nx  
+'88h. `8888   8888         u        .@8Ned8"      .u          d8888R    d888b   `8888> 
+'8888 '8888    "88>     us888u.   .@^%8888"    ud8888.       @ 8888R    ?8888>  98888F 
+ `888 '8888.xH888x.  .@88 "8888" x88:  `)8b. :888'8888.    .P  8888R     "**"  x88888~ 
+   X" :88*~  `*8888> 9888  9888  8888N=*8888 d888 '88%"   :F   8888R          d8888*`  
+ ~"   !"`      "888> 9888  9888   %8"    R88 8888.+"     x"    8888R        z8**"`   : 
+  .H8888h.      ?88  9888  9888    @8Wou 9%  8888L      d8eeeee88888eer   :?.....  ..F 
+ :"^"88888h.    '!   9888  9888  .888888P`   '8888c. .+        8888R     <""888888888~ 
+ ^    "88888hx.+"    "888*""888" `   ^"F      "88888%          8888R     8:  "888888*  
+        ^"**""        ^Y"   ^Y'                 "YP'        "*%%%%%%**~  ""    "**"`   

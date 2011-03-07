@@ -1,6 +1,6 @@
 <div id="home">
 	<?php if($project_id === ""){ ?>
-		<h2>Welcome to <em><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>">Todomeister</abbr></em></h2>	
+		<h1>Welcome to <em><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>">Todomeister</abbr></em></h1>	
 		Todomeister is the simplest way to create <ins>collaborative todo lists</ins> to <ins>share</ins> with your team. <br><br>
 		The main goal of Todomeister is to keep it simple!<br>
 		So <ins>no login</ins> and <ins>no registration</ins> required.<br>

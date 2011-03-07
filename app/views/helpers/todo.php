@@ -58,7 +58,7 @@
 						<?php } ?>						
 						<sub class="actions right"> <?php echo $editlinks; ?> </sub>
 						<p class="original hidden"><?php echo $data['Todo']['text']; ?></p>
-						<p><?php echo nl2br($data['Todo']['text']); ?></p>
+						<p class="text"><?php echo nl2br($data['Todo']['text']); ?></p>
 						<sub class="footer"><?php echo $date; ?></sub>
 					</li>
 				<?php

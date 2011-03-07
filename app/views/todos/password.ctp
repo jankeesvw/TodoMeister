@@ -12,7 +12,7 @@
 <input id="checkboxforreadpassword" type="checkbox" name="wantreadpassword" style="float: left; display: inline;">
 <label for="wantreadpassword" style="float: left; display: inline;">I would like to create a <strong>viewers password</strong></label>
 
-<div style="clear: both;"></div>
+<div class="clearfix"></div>
 
 <div id="readonlypassword">
 	<?php echo $form->input('read',array('label'=>'Read only password (optional)','style'=>'width: 200px','autocomplete'=>"off")) ?>

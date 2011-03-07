@@ -24,6 +24,7 @@
  	echo $html->css('todomeister.css?v=2');
  	echo $html->css('colorPicker.css');
 
+
 	if (isset($javascript)){
 		echo $javascript->link('libs/modernizr-1.7.min.js');
 		echo $javascript->link('libs/jquery-1.5.1.js');
@@ -33,6 +34,7 @@
 		echo $scripts_for_layout;
 	}
 ?>
+
 </head>
 	<body class="centered">
 
