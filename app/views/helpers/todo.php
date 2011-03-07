@@ -52,7 +52,7 @@
 					<li class="<?php echo $current_status != "3" ? "editable" : ""; ?> todo" id="<?php echo $data['Todo']['id']; ?>">
 						
 						<?php if($auth_level > 2) { ?>
-							<input autocomplete="off" class="hidden color_picker" name="<?php echo $data['Todo']['id']; ?>" value="<?php echo $data['Todo']['color']; ?>" />
+							<input autocomplete="off" class="color_picker" name="<?php echo $data['Todo']['id']; ?>" value="<?php echo $data['Todo']['color']; ?>" />
 						<?php }else{ ?>
 							<div class="color" style="background-color: <?php echo $data['Todo']['color']; ?>;">&nbsp;</div>
 						<?php } ?>						

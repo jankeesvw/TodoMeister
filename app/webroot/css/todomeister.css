@@ -5,21 +5,21 @@ body {
   letter-spacing: 0px;
   color: #444444;
 }
-body.centered {
-  background-color: #cccccc;
-}
 body ::-moz-selection {
   background: #444444;
-  color: #fff;
+  color: #ffffff;
   text-shadow: none;
 }
 body ::selection {
   background: #444444;
-  color: #fff;
+  color: #ffffff;
   text-shadow: none;
 }
+body.centered {
+  background-color: #cccccc;
+}
 body ins {
-  background-color: #ff9;
+  background-color: #ffff99;
   color: #444444;
   font-family: times;
   font-size: 16px;
@@ -190,11 +190,7 @@ body #centered {
   min-height: 40px;
   padding: 30px;
   margin-top: -50px;
-  /*set to a negative number 1/2 of your height*/
-
   margin-left: -150px;
-  /*set to a negative number 1/2 of your width*/
-
   background-color: #ffffff;
   border: 1px solid #949991;
   -webkit-border-radius: 8px;
@@ -229,18 +225,23 @@ body .button input {
   margin-top: 10px;
 }
 body input, body textarea {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   font-family: arial;
   border: 1px solid #dedede;
   font-size: 13px;
   height: 38px;
-  padding: 2px 5px 2px 5px;
+  padding: 2px 15px 2px 15px;
   margin: 5px 0px 0px 0px;
   display: block;
+  -webkit-appearance: none;
 }
 body input[type="submit"], body textarea[type="submit"] {
   cursor: pointer;
   background-color: #f5f5f5;
   height: 44px;
+  padding: 2px 5px 2px 5px;
 }
 body input[type="checkbox"], body textarea[type="checkbox"] {
   display: inline;

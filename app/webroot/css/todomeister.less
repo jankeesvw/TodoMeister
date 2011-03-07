@@ -2,35 +2,41 @@
 @italic-font: times;
 
 @blue: #11a9f2;
+@grey: #cccccc;
+@white: #ffffff;
+@black: #444444;
+@ins-color: #ffff99;
 
 @done-background-color: #c9d5c6;
 @progress-background-color: #cddbed;
 @todo-background-color: #cccccc;
 
 @border: #dedede;
-@black: #444444;
+
 @sub-links: #787878;
 @border-todo: #949991;
 
 @link-color: darken(@black, 10%);
 
+@corner-radius-small: 4px;
+
 body {
-	
-	&.centered {
-		background-color: #cccccc;
-	}
-	
+
 	padding: 15px 10px 40px 10px;
 	font-family: @font;
 	line-height: 20px;
 	letter-spacing: 0px;
 	color: @black;
 	
-	::-moz-selection{ background: @black; color:#fff; text-shadow: none; }
-	::selection { background:@black; color:#fff; text-shadow: none; }
+	::-moz-selection{ background: @black; color:@white; text-shadow: none; }
+	::selection { background:@black; color:@white; text-shadow: none; }
+
+	&.centered {
+		background-color: @grey;
+	}
 	
 	ins {
-		background-color: #ff9;
+		background-color: @ins-color;
 	    color: @black;
 	    font-family: @italic-font;
 	    font-size: 16px;
@@ -235,8 +241,6 @@ body {
 	.status3 .statusBased.visibleOnStatus3 {
 		display: inline;
 	}
-	
-
 
 	#centered {
 		@total-height: 100px;
@@ -252,8 +256,8 @@ body {
 		min-height: @total-height - 2 * @padding;
 		padding: @padding;
 
-		margin-top: 0 - @total-height/ 2; /*set to a negative number 1/2 of your height*/
-		margin-left: 0 - @total-width / 2; /*set to a negative number 1/2 of your width*/
+		margin-top: 0 - @total-height/ 2; // set to a negative number 1-2 of your height
+		margin-left: 0 - @total-width / 2; //set to a negative number 1-2 of your width
 
 		background-color: #ffffff;
 	
@@ -301,18 +305,26 @@ body {
 	}
 
 	input, textarea  {
+
+		-webkit-border-radius: @corner-radius-small;
+		-moz-border-radius: @corner-radius-small;
+		border-radius: @corner-radius-small;		
+		
 		font-family: @font;
 	    border: 1px solid @border;
 	    font-size:13px;
 		height: 38px;
-		padding: 2px 5px 2px 5px;	
+		padding: 2px 15px 2px 15px;	
 		margin: 5px 0px 0px 0px;	
 		display: block;
+		
+	    -webkit-appearance: none;		
 		
 		&[type="submit"] {
 			cursor:pointer;
 			background-color:#f5f5f5;
 			height: 44px;
+			padding: 2px 5px 2px 5px;
 		}
 		&[type="checkbox"] {
 			display: inline;
