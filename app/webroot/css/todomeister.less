@@ -25,7 +25,7 @@ body.centered, #html_centered {
 }
 
 body {
-
+	font-size: 11px;
 	padding: 15px 10px 40px 10px;
 	font-family: @font;
 	line-height: 20px;
@@ -39,11 +39,29 @@ body {
 		background-color: @grey;
 	}
 	
+	#project_name_availability {
+	    display: inline;
+	    float: left;
+	    padding-left: 12px;
+	    padding-top: 19px;
+		width: 90px;
+		
+		img {
+			float: left;
+		}
+		
+		p {
+		    float: left;
+		    margin-left: 5px;
+		    margin-top: -2px;
+		}
+	}
+	
 	ins {
 		background-color: @ins-color;
 	    color: @black;
 	    font-family: @italic-font;
-	    font-size: 16px;
+	    font-size: 1.3em;
 	    font-style: italic;
 	    padding: 3px;
 	    text-decoration: none;
@@ -200,6 +218,7 @@ body {
 	 	.todo, .sortablePlaceholder 
 		{
 			background-color: @done-background-color;
+			font-size: 0.8em;
 			p {
 				text-decoration: line-through;
 			}

@@ -24,17 +24,17 @@
 				$editlinks .= "<span class=\"statusBased visibleOnStatus1\">";
 				$editlinks .= "<a href=\"#\" class=\"edit_button\">edit</a> - "; 
 				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "remove", $data['Todo']['id'],$project_id,$name))."\">remove</a> - ";
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],$current_status+1,$project_id,$name))."\">start</a>"; 
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">start</a>"; 
 				$editlinks .= "</span>";
 				
 				$editlinks .= "<span class=\"statusBased visibleOnStatus2\">";
 				$editlinks .= "<a href=\"#\" class=\"edit_button\">edit</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],$current_status-1,$project_id,$name))."\">stop</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],$current_status+1,$project_id,$name))."\">done</a>"; 
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],1,$project_id,$name))."\">stop</a> - "; 
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],3,$project_id,$name))."\">done</a>"; 
 				$editlinks .= "</span>";
 				
 				$editlinks .= "<span class=\"statusBased visibleOnStatus3\">";
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],$current_status-1,$project_id,$name))."\">put back</a> - "; 
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">put back</a> - "; 
 				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">show log</a>";
 				$editlinks .= "</span>";
 				
@@ -65,8 +65,18 @@
 			
 			}
 			
+			function shortenText($text,$length=25) {
+			        $chars = $length;
+			        $text = $text." ";
+			        $text = substr($text,0,$chars);
+			        $text = substr($text,0,strrpos($text,' '));
+			        $text = $text."...";
+					return $text;
+    		}
+			
+			
 			function renderLogHeader($data) {
-				return "<p>'". $data['Todo']['text'] . "' created by ". $data['Todo']['who'] ." (".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</p>";
+				return "<p>'". $this->shortenText($data['Todo']['text'],40) . "' created by ". $data['Todo']['who'] ." (".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</p>";
 			}
 			
 			function renderLog($data) {

@@ -287,11 +287,20 @@ class TodosController extends AppController {
 		exit;
 	}
 	
+	function list_name_available($project_id){		
+		if($this->Todo->find('first', array('conditions' => array('project_id' => $project_id)))){
+			echo "1";
+		}else{
+			echo "0";
+		}
+		exit;
+	}
+	
 	/**
 	* Update the order of all todo items 
 	* TODO: this can be done more efficiently
 	*/
-	function order($project_id){
+	function order($project_id,$name){
 		if($this->Authorization->checkAuthorization($project_id) < 2){
 			// redirect back to the login page
 			$this->Session->setFlash('This method requires a login');
@@ -328,6 +337,7 @@ class TodosController extends AppController {
 
 						// if this item is the dragged item, reset the modified date
 						if($item['Todo']['id'] === $current_item_id){
+							$item['Todo']['who'] = $name;
 							unset($item['Todo']['modified']);
 						}
 						

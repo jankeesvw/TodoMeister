@@ -1,5 +1,6 @@
 <div class="logs">
 	<?php 
+	
 			if(sizeof($revs) > 0){
 				$current_id = $revs[0]['Todo']['id'];
 				echo "<br/>";
