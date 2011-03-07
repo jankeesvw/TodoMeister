@@ -31,7 +31,7 @@
 		</ul>
 	</div>
 	<div class="column status2"> 
-		<h2>todo (<span class="numberOfTodos"><?php echo count($statusTwo); ?></span>)</h2>
+		<h2>in progress (<span class="numberOfTodos"><?php echo count($statusTwo); ?></span>)</h2>
 	 	<?php 
 			if($auth_level > 1) {
 				 echo $this->Todo->form("2",$this->Html->url(array("action" => "add",$project_id,$name)),$project_id,$name);
@@ -44,7 +44,7 @@
 		</ul>
 	</div>
 	<div class="column status3"> 
-		<h2>todo (<span class="numberOfTodos"><?php echo count($statusThree); ?></span>)</h2>
+		<h2>done (<span class="numberOfTodos"><?php echo count($statusThree); ?></span>)</h2>
 		<ul class="sortable">
 			<?php 
 				$iterator = 0;
