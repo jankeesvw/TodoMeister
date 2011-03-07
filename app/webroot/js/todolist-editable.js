@@ -3,7 +3,6 @@ $(function() {
 	 	placeholder: "sortablePlaceholder",
 	   	connectWith: ".sortable",
 
-
 	   	update: function(event, ui) {
 			resizeColorBlocks();
 		

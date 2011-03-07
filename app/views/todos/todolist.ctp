@@ -8,12 +8,14 @@
 	$js_vars .= "var order_update_url = '".$this->Html->url(array("action" => "order",$project_id))."';";	
 
 	echo $this->Javascript->codeBlock($js_vars); 
-	echo $this->Javascript->includeScript('todolist');
+
 
 	if($auth_level > 1) { 
 		echo $this->Javascript->includeScript('todolist-editable');
-		echo $this->Javascript->includeScript('libs/jquery-ui-1.8.10.custom.min');
+		echo $this->Javascript->link('libs/jquery-ui-1.8.10.custom.min');
 	} 
+	echo $this->Javascript->includeScript('todolist');
+
 ?>
 
 <div id="main" role="main">
