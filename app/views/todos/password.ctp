@@ -44,5 +44,7 @@
 		$('#readonlypassword').hide();
 		$('#PasswordRead').attr('value','');
 		
+		$('#PasswordRead').focus();
+		
 	});
 </script>
