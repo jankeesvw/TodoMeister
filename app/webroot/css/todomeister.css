@@ -1,3 +1,6 @@
+body.centered, #html_centered {
+  background-color: #cccccc;
+}
 body {
   padding: 15px 10px 40px 10px;
   font-family: arial;
