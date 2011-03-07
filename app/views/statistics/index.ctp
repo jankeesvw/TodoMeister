@@ -1,7 +1,8 @@
 <h1>Stats for <em>Todomeister</em></h1>
 <br>
 <h2>Number of todos: <ins><?php echo $numberOfTodos; ?></ins></h2>
-<h2>Number of todos created today: <ins><?php echo $numberOfTodosToday; ?></ins></h2>
+<h2>Number of todos created today: <ins><?php echo $numberOfTodosCreatedToday; ?></ins></h2>
+<h2>Number of todos modified today: <ins><?php echo $numberOfTodosModifiedToday; ?></ins></h2>
 <h2>Number of lists: <ins><?php echo $numberOfLists; ?></ins></h2>
 <h2>Number of passwords: <ins><?php echo $numberOfPasswords; ?></ins></h2>
 <h2>Number of users: <ins><?php echo $numberOfUsers; ?></ins></h2>

@@ -1,12 +1,13 @@
 <?php
-	class StatsController extends AppController {
+	class StatisticsController extends AppController {
 		
 		var $uses = array("Todos","Passwords");
 		var $helpers = array("Chart","Javascript");
 		
 		function index(){
 			$this->set('numberOfTodos', $this->Todos->find('count'));
-			$this->set('numberOfTodosToday', $this->Todos->find('count',array('conditions'=>array("created >" => date('Y-m-d', strtotime("today"))))));
+			$this->set('numberOfTodosCreatedToday', $this->Todos->find('count',array('conditions'=>array("created >" => date('Y-m-d', strtotime("today"))))));
+			$this->set('numberOfTodosModifiedToday', $this->Todos->find('count',array('conditions'=>array("modified >" => date('Y-m-d', strtotime("today"))))));
 			$this->set('numberOfLists', $this->Todos->find('count', array('fields' => 'DISTINCT project_id')));
 			$this->set('numberOfPasswords', $this->Passwords->find('count'));
 			$this->set('numberOfUsers', $this->Todos->find('count', array('fields' => 'DISTINCT who')));

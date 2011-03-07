@@ -2,6 +2,10 @@ $(function() {
 	$( ".sortable" ).sortable({
 	 	placeholder: "sortablePlaceholder",
 	   	connectWith: ".sortable",
+	 	start: function(event, ui) { 
+			$('body').addClass('editing');
+		},
+	
 
 	   	update: function(event, ui) {
 			resizeColorBlocks();
@@ -11,9 +15,14 @@ $(function() {
 			
 			$('.column').each(function(index) {
 
-
-			var totalNumberTodos = $(this).find('li').length;
-				$(this).find('.numberOfTodos').html(totalNumberTodos);
+				
+				var totalNumberTodos = $(this).find('li').length;
+				more = $(this).find('div.more');
+				if(more.length > 0){
+					$(this).find('.numberOfTodos').html(totalNumberTodos+'+');
+				}else{
+					$(this).find('.numberOfTodos').html(totalNumberTodos);
+				}
 			});
 		
 			data = '';
@@ -26,6 +35,7 @@ $(function() {
 				url: order_update_url,
 				data: "item="+ui.item.attr('id') + data,
 				success: function(html){
+					$('body').removeClass('editing');
 					$('body').addClass('dontReload');				
 				}
 			});
@@ -42,6 +52,9 @@ $(function() {
 	});
 	
 	function editElement(item){
+		
+		$('body').addClass('editing');
+			
 		if(item.hasClass('editable')){
 			item.removeClass('editable');
 			id = item.attr('id');

@@ -6,6 +6,8 @@ function checkVersion(){
 			if($('body').hasClass('dontReload') == true){
 				$('body').removeClass('dontReload')
 				currentVersion = html;
+			}else if($('body').hasClass('editing')){
+				// editing
 			}else if(currentVersion != html){
 				window.location.reload();
 			}
