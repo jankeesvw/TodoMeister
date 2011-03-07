@@ -20,6 +20,10 @@
 
 @corner-radius-small: 4px;
 
+body.centered, #html_centered {
+	background-color: @grey;
+}
+
 body {
 
 	padding: 15px 10px 40px 10px;
@@ -31,9 +35,6 @@ body {
 	::-moz-selection{ background: @black; color:@white; text-shadow: none; }
 	::selection { background:@black; color:@white; text-shadow: none; }
 
-	&.centered {
-		background-color: @grey;
-	}
 	
 	ins {
 		background-color: @ins-color;
