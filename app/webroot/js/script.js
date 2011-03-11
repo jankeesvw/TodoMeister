@@ -8,7 +8,6 @@ $(function() {
 	});
 	
 	function handleResize(){
-		log($('div#centered').outerHeight());
 		if($('div#centered').outerHeight() > $(window).height()){
 			$('div#centered').css('top','0%');
 			$('div#centered').css('margin-top','20px');
@@ -22,6 +21,7 @@ $(function() {
 	
 		$('div#centered').css('margin-left',-$('div#centered').outerWidth()/2);
 		resizeColorBlocks();
+		updateTwinforms();
 	}
 
 	$(window).resize(function() {
@@ -34,6 +34,34 @@ $(function() {
 	$('.error').delay(5000).slideUp(300);
 	
 });
+
+function updateTwinforms(){
+	$('.twinForm').each(function(index,form) {
+	    elements = $(form).find('input[type!=hidden]');
+
+	    if(elements.length != 2){
+	        log('problem with number of fields in a twinfield');
+	        return;
+	    }
+
+	    element1 = $(elements[0]);
+	    element2 = $(elements[1]);
+
+	    // is first input text, then width 80%
+	    if(element1.attr('type') == "text"){
+	        element1.width('70%');
+	    }else{
+		    element1.width('50%');
+		}
+
+	    takenWidth = element1.outerWidth();
+	    availableWidth = element1.parent().outerWidth();
+
+	    padding = element2.outerWidth() - element2.innerWidth();
+	
+	    element2.width((availableWidth - takenWidth) + 'px');
+	});
+}
 
 function resizeColorBlocks(){
   $('.color').each(function(index) {

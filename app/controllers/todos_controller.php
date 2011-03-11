@@ -14,6 +14,7 @@ class TodosController extends AppController {
 		
 		if(isset($_POST['projectname']) && isset($_POST['username']) && $_POST['projectname'] ==! "" && $_POST['username']  ==! ""){
 			$this->redirect(array('action' => 'todolist',$_POST['projectname'],$_POST['username']));
+
 			exit;
 		}
 		
@@ -43,6 +44,8 @@ class TodosController extends AppController {
 	}
 	
 	function ahahah(){
+
+
 		$this->layout = 'empty';	
 	}
 	
@@ -68,9 +71,9 @@ class TodosController extends AppController {
 
 		$this->set('project_id',$project_id); 
 		$this->set('name',$name);
-		$this->set('statusOne', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '1'),'order' => array('order','modified desc'))));
-		$this->set('statusTwo', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '2'),'order' => array('order','modified desc'))));
-		$this->set('statusThree', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '3'),'order' => array('order','modified desc'))));
+		$this->set('statusOne', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '1'),'order' => array('order desc','modified desc'))));
+		$this->set('statusTwo', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '2'),'order' => array('order desc','modified desc'))));
+		$this->set('statusThree', $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => '3'),'order' => array('order desc','modified desc'))));
 		
 		// create a custom title for the page
 		App::import('Helper', 'Html');
@@ -79,10 +82,10 @@ class TodosController extends AppController {
 		// Editing as Jankees. Not Jankees? Change name here...
 		$sublink = "Editing as ". $name .". Not ". $name . "? " . $html->link("Change here...", array("action"=>"start",$project_id));
 		
+		
+		
 		if($auth_level > 1){
-			
 			$locklink = $html->link($html->image($html->url('/img/book_open.png'),array('title' => 'open project log')), array('action' => 'project_log',$project_id,$name),array('escape' => false));
-			
 			if($this->Password->find('first', array('conditions' => array('project_id' => $project_id)))){
 				$locklink .= $html->link($html->image($html->url('/img/lock_edit.png'), array('title' => 'change password')), array('action' => 'password',$project_id,$name),array('escape' => false));	
 			}else{
@@ -90,6 +93,10 @@ class TodosController extends AppController {
 			}
 		}else{
 			$locklink = $html->link($html->image($html->url('/img/pencil_delete.png'), array('title' => 'read only access')), array('action' => 'login',$project_id,$name),array('escape' => false));	
+		}
+		
+		if($this->Authorization->hasLoginSaved() > 0){
+		   $locklink .= $html->link($html->image($html->url('/img/door_open.png'), array('title' => 'log out')), array('action' => 'logout',$project_id,$name),array('escape' => false));	
 		}
 		
 		$this->set('title_for_layout', $project_id.' - '.$name. ' on Todomeister'); 		
@@ -223,20 +230,19 @@ class TodosController extends AppController {
 			exit;
 		}
 		
+		$highest_item = $this->Todo->find('first', array('conditions' => array('project_id' => $project_id,'status' => $this->data['Todo']['status']),'order' => array('order desc','modified desc')));
+		$newOrderNummer = 0;
+		if($highest_item){
+		   $newOrderNummer = $highest_item['Todo']['order'];
+		   $newOrderNummer++;
+		}
+		
+		$this->data['Todo']['order'] = $newOrderNummer;
+		
 		if(!$this->Todo->save($this->data)){
 			$this->Session->setFlash('Error saving todo, did you enter a text?');
 			$this->redirect(array('action' => 'todolist',$project_id,$name,'#'.$this->data['Todo']['status']));
 			exit;
-		}
-		
-		$items = $this->Todo->find('all', array('conditions' => array('project_id' => $project_id,'status' => $this->data['Todo']['status']),'order' => array('order','modified desc')));
-		$iterator = 0;
-		foreach ($items as $item) {
-			if($item['Todo']['order'] != $iterator){
-				$item['Todo']['order'] = $iterator;
-				$this->Todo->save($item);
-			}				
-			$iterator++;
 		}
 
 		// redirect back to the list with a #status to regain focus
@@ -321,10 +327,11 @@ class TodosController extends AppController {
 			
 			// first item has order 0
 			$order_number = 0;
+			$ids = array_reverse($ids);
 			foreach ($ids as $id) {
 
 				// get the item from the database (this could be optimized!)
-				$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
+				$item = $this->Todo->find('first', array('conditions' => array('id' => $id)));
 				
 				//if it's a valid item go on
 				if($item){
@@ -382,7 +389,7 @@ class TodosController extends AppController {
 		
 		$id = $_POST['id'];
 		$todotext = $_POST['todo'];
-		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
+		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order desc')));
 		$item['Todo']['text'] = $todotext;
 		$item['Todo']['who'] = $name;
 		unset($item['Todo']['modified']);
@@ -411,24 +418,6 @@ class TodosController extends AppController {
 			$this->redirect(array('action' => 'todolist',$project_id,$name));
 		}
 		echo "error!";
-		exit;
-	}
-	
-	/**
-	* The user doesn't want to see all complete items in the list
-	*/
-	function less() {
-		$this->Session->write('more',false);
-		$this->redirect($this->referer());
-		exit;
-	}
-
-	/**
-	* The user doesn't want to see all complete items in the list
-	*/
-	function more() {
-		$this->Session->write('more',true);
-		$this->redirect($this->referer());
 		exit;
 	}
 	

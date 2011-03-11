@@ -14,7 +14,7 @@
 
 <div class="clearfix"></div>
 
-<div id="readonlypassword">
+<div id="readonlypassword" class="hidden">
 	<?php echo $form->input('read',array('label'=>'Read only password (optional)','style'=>'width: 200px','autocomplete'=>"off")) ?>
 </div>
 
@@ -42,6 +42,7 @@
 		});
 	
 		$('#readonlypassword').hide();
+		$('#readonlypassword').removeClass('hidden');
 		$('#PasswordRead').attr('value','');
 		
 		$('#PasswordRead').focus();

@@ -9,6 +9,7 @@ $(function() {
 
 	   	update: function(event, ui) {
 			resizeColorBlocks();
+			updateULHeight();
 		
 			// update the time in the item
 			ui.item.find("#time").html("(0 minutes ago)");
@@ -16,12 +17,7 @@ $(function() {
 			
 			$('.column').each(function(index) {
 				var totalNumberTodos = $(this).find('li').length;
-				more = $(this).find('div.more');
-				if(more.length > 0){
-					$(this).find('.numberOfTodos').html(totalNumberTodos+'+');
-				}else{
-					$(this).find('.numberOfTodos').html(totalNumberTodos);
-				}
+				$(this).find('.numberOfTodos').html(totalNumberTodos);
 			});
 
 			
@@ -116,9 +112,23 @@ $(function() {
 	urlparts = window.location.href.split('#');
 	urlparts.shift();
 	if(urlparts.length > 0){
-		selector = '.column.status'+urlparts[0]+' input:text.todo';
+		selector = '.column.status'+urlparts[0]+' input[type="text"]';
 		$(selector).focus();
 	}
+	
+	updateULHeight();
 });
+
+function updateULHeight(){
+	maxHeight = 0;
+	$('ul').each(function(index,ul) {
+	    height = $(ul).height();
+	    if(height > maxHeight) maxHeight = height;
+	});
+
+	$('ul').each(function(index,ul) {
+	    height = $(ul).height(maxHeight);
+	});
+}
 
 

@@ -8,8 +8,7 @@ class AuthorizationComponent extends Object {
 	* returns 1 if you have read acces
 	* returns 2 if you have read and write access
 	*/
-	
-    function checkAuthorization($project_id) {
+	 function checkAuthorization($project_id) {
 		
 		$Password = ClassRegistry::init('Password');
 		$currentPassword = $Password->find('first', array('conditions' => array('project_id' => $project_id)));
@@ -31,6 +30,13 @@ class AuthorizationComponent extends Object {
 		}
         
     }
+    
+    
+ 	function hasLoginSaved(){
+ 	   if($this->Session->read('read') || $this->Session->read('write')) return 1;
+ 	   return -1;
+ 	}
+    
 	function clear(){
 		$this->Session->write('read',array());
 		$this->Session->write('write',array());

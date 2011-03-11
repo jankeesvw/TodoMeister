@@ -49,19 +49,9 @@
 	<div class="column status3"> 
 		<h2>done (<span class="numberOfTodos"><?php echo count($statusThree); ?></span>)</h2>
 		<ul class="sortable">
-			<?php 
-				$iterator = 0;
+			<?php
 				foreach ($statusThree as $status) { 
-					$iterator++;
-					if($iterator < 10 || $this->Session->read('more') == 1){
 						echo $this->Todo->todo($status,$project_id,$name,$auth_level); 
-					}else{ 
-						?>	<div class="more"><a href="<?php echo $this->Html->url(array("action" => "more"));?>">more...</a></div><?php 
-					break;
-					}
-				}
-				if($iterator > 10 && $this->Session->read('more') == 1){
-					?>	<div class="more"><a href="<?php echo $this->Html->url(array("action" => "less"));?>">less...</a></div><?php 	
 				}
 			?>
 		</ul>

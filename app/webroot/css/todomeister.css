@@ -55,6 +55,9 @@ body h1 {
   font-weight: normal;
   margin-bottom: 14px;
 }
+body header h1 {
+  margin-bottom: 2px;
+}
 body h1 em,
 body h2 em,
 body p em,
@@ -169,7 +172,7 @@ body .status3 .todo, body .status3 .sortablePlaceholder {
   font-size: 0.9em;
 }
 body .status3 .todo p, body .status3 .sortablePlaceholder p {
-  text-decoration: line-through;
+  text-decoration: underline;
 }
 body .logitem {
   float: left;

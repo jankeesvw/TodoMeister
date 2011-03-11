@@ -6,7 +6,7 @@
 					$form = "";
 					$form .= " <div class=\"twinForm\">                                                                                     ";
 					$form .= " 	<form method=\"post\" action=\"".$url."\">                                                              ";
-					$form .= " 		<input type=\"text\" name=\"data[Todo][text]\" class=\"input\"/>                                    ";
+					$form .= " 		<input autocomplete=\"off\" type=\"text\" name=\"data[Todo][text]\" class=\"input\"/>                                    ";
 					$form .= " 		<input type=\"hidden\" name=\"data[Todo][project_id]\" value=\"".$project_id."\" class=\"input\"/>  ";
 					$form .= " 		<input type=\"hidden\" name=\"data[Todo][who]\" value=\"".$name."\" class=\"input\"/>             ";
 					$form .= " 		<input type=\"hidden\" name=\"data[Todo][status]\" value=\"".$status." \" class=\"input\"/>          ";
@@ -29,13 +29,14 @@
 				
 				$editlinks .= "<span class=\"statusBased visibleOnStatus2\">";
 				$editlinks .= "<a href=\"#\" class=\"edit_button\">edit</a> - "; 
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "remove", $data['Todo']['id'],$project_id,$name))."\">remove</a> - ";
 				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],1,$project_id,$name))."\">stop</a> - "; 
 				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],3,$project_id,$name))."\">done</a>"; 
 				$editlinks .= "</span>";
 				
 				$editlinks .= "<span class=\"statusBased visibleOnStatus3\">";
 				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">put back</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">show log</a>";
+				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">item log</a>";
 				$editlinks .= "</span>";
 				
 				if($auth_level < 2) $editlinks = ""; 
@@ -45,7 +46,7 @@
 				$date .= $data['Todo']['who'];
 				$date .= "</span> ";
 				$date .= "<span class=\"statusBased visibleOnStatus1 visibleOnStatus2\">";
-				$date .= "<a id=\"time\" href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">(".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</a>";
+				$date .= "<a id=\"time\" href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">(updated ".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</a>";
 				$date .= "</span>";
 				
 				?>
@@ -59,7 +60,7 @@
 						<sub class="actions right"> <?php echo $editlinks; ?> </sub>
 						<p class="original hidden"><?php echo $data['Todo']['text']; ?></p>
 						<p class="text"><?php echo nl2br($data['Todo']['text']); ?></p>
-						<sub class="footer"><?php echo $date; ?></sub>
+						<sub class="footer statusBased visibleOnStatus1 visibleOnStatus2"><?php echo $date; ?></sub>
 					</li>
 				<?php
 			
