@@ -409,10 +409,11 @@ class TodosController extends AppController {
 			exit;
 		}
 		
+		$number = $this->Todo->find('count', array('conditions' => array('project_id' => $project_id,'status' => $new_status),'order' => array('order desc','modified desc')));	
 		$item = $this->Todo->find('first', array('conditions' => array('id' => $id),'order' => array('order')));
 		$item['Todo']['status'] = $new_status;
 		$item['Todo']['who'] = $name;
-		$item['Todo']['order'] = "0";
+		$item['Todo']['order'] = $number;
 		unset($item['Todo']['modified']);
 		if($this->Todo->save($item)) {
 			$this->redirect(array('action' => 'todolist',$project_id,$name));
