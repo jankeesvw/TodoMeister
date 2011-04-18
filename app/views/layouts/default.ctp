@@ -39,7 +39,7 @@
 	<body id="todomeister">
 		<header>
 			<div class="right">
-				<h1><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>"><a href="<?php echo $this->Html->url(array("action" => "start"));?>">todomeister</a></abbr></h1>
+				<h1><?php echo $html->image('logo.jpg'); ?><abbr title="version <?php echo Configure::read('TodoMeister.version'); ?>"><a href="<?php echo $this->Html->url(array("action" => "start"));?>">todomeister</a></abbr></h1>
 				<sub class="tiny"><a href="http://www.base42.nl">(by base42.nl)</a></sub>
 			</div>
 			<div>

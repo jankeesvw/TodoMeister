@@ -21,23 +21,23 @@
 							
 				$editlinks = "";
 				
-				$editlinks .= "<span class=\"statusBased visibleOnStatus1\">";
-				$editlinks .= "<a href=\"#\" class=\"edit_button\">edit</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "remove", $data['Todo']['id'],$project_id,$name))."\">remove</a> - ";
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">start</a>"; 
-				$editlinks .= "</span>";
+				$editlinks .= "<ul class=\"statusBased visibleOnStatus1\">";
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">".$this->Html->image('arrow1_e.png')."</a></li>"; 
+				$editlinks .= "<li><a href=\"#\" class=\"edit_button\">".$this->Html->image('edit.png')."</a></li>"; 
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "remove", $data['Todo']['id'],$project_id,$name))."\">".$this->Html->image('trash.png')."</a></li>";
+				$editlinks .= "</ul>";
 				
-				$editlinks .= "<span class=\"statusBased visibleOnStatus2\">";
-				$editlinks .= "<a href=\"#\" class=\"edit_button\">edit</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "remove", $data['Todo']['id'],$project_id,$name))."\">remove</a> - ";
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],1,$project_id,$name))."\">stop</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],3,$project_id,$name))."\">done</a>"; 
-				$editlinks .= "</span>";
+				$editlinks .= "<ul class=\"statusBased visibleOnStatus2\">";
+
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],3,$project_id,$name))."\">".$this->Html->image('arrow1_e.png')."</a></li>"; 
+				$editlinks .= "<li><a href=\"#\" class=\"edit_button\">".$this->Html->image('edit.png')."</a></li>"; 
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],1,$project_id,$name))."\">".$this->Html->image('arrow1_w.png')."</a></li>"; 
+				$editlinks .= "</ul>";
 				
-				$editlinks .= "<span class=\"statusBased visibleOnStatus3\">";
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">put back</a> - "; 
-				$editlinks .= "<a href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">item log</a>";
-				$editlinks .= "</span>";
+				$editlinks .= "<ul class=\"statusBased visibleOnStatus3\">";
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],2,$project_id,$name))."\">".$this->Html->image('arrow1_w.png')."</a></li>"; 
+				$editlinks .= "<li><a href=\"".$this->Html->url(array("action" => "updateStatus", $data['Todo']['id'],4,$project_id,$name))."\">".$this->Html->image('arrow1_e.png')."</a></li>"; 
+				$editlinks .= "</ul>";
 				
 				if($auth_level < 2) $editlinks = ""; 
 				
@@ -46,7 +46,7 @@
 				$date .= $data['Todo']['who'];
 				$date .= "</span> ";
 				$date .= "<span class=\"statusBased visibleOnStatus1 visibleOnStatus2\">";
-				$date .= "<a id=\"time\" href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">(updated ".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</a>";
+				$date .= "<a id=\"time\" href=\"".$this->Html->url(array("action" => "log_item", $data['Todo']['id'],$project_id,$name))."\">(updated ".$this->RelativeTime->getRelativeTime($data['Todo']['modified']).")</a>";
 				$date .= "</span>";
 				
 				?>
@@ -57,7 +57,7 @@
 						<?php }else{ ?>
 							<div class="color" style="background-color: <?php echo $data['Todo']['color']; ?>;">&nbsp;</div>
 						<?php } ?>						
-						<sub class="actions right"> <?php echo $editlinks; ?> </sub>
+						<div class="actions"> <?php echo $editlinks; ?> </div>
 						<p class="original hidden"><?php echo $data['Todo']['text']; ?></p>
 						<p class="text"><?php echo nl2br($data['Todo']['text']); ?></p>
 						<sub class="footer statusBased visibleOnStatus1 visibleOnStatus2"><?php echo $date; ?></sub>
@@ -77,7 +77,7 @@
 			
 			
 			function renderLogHeader($data) {
-				return "<p>'". $this->shortenText($data['Todo']['text'],40) . "' created by ". $data['Todo']['who'] ." (".$this->RelativeTime->getRelativeTime($data['Todo']['modified'])." ago)</p>";
+				return "<p>'". $this->shortenText($data['Todo']['text'],40) . "' created by ". $data['Todo']['who'] ." (".$this->RelativeTime->getRelativeTime($data['Todo']['modified']).")</p>";
 			}
 			
 			function renderLog($data) {

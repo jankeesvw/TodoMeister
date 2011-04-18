@@ -10,6 +10,7 @@
 @done-background-color: #c9d5c6;
 @progress-background-color: #cddbed;
 @todo-background-color: #cccccc;
+@archived-background-color: #a0a0a0;
 
 @border: #dedede;
 
@@ -122,8 +123,10 @@ body {
 		sub {
 			margin-top: 5px;
 		}
-		img {
-			margin-left:5px;
+		
+		.right img {
+			margin-left:2.5px;
+			margin-right:2.5px;
 		}
 	} // header
 	
@@ -201,10 +204,21 @@ body {
 		p, div.form, sub.footer {
 			padding-left: 10px;
 		}
-		
-		sub.actions {
+		.actions {
+			float: right;
+			margin-right: -15px;
+			margin-top: -10px;
 			padding-top: 5px;
+			padding-bottom: 5px;
 			padding-left: 5px;
+			padding-right: 5px;
+			width: 20px;
+			ul{
+				li {
+					margin-bottom: -5px;
+    				text-align: center;
+				}
+			}
 		}
 		
 	} // todo
@@ -213,24 +227,52 @@ body {
 	 	.todo, .sortablePlaceholder 
 		{
 			background-color: @todo-background-color;
+			.actions {
+				background-color: darken(@todo-background-color, 10%);
+				border-left: 1px solid darken(@todo-background-color, 20%);
+			}
 		}
 	}
 	.status2 {
-	 	.todo, .sortablePlaceholder 
+	 	.todo, .sortablePlaceholder
 		{
 			background-color: @progress-background-color;
+			.actions {
+				background-color: darken(@progress-background-color, 10%);
+				border-left: 1px solid darken(@progress-background-color, 20%);
+			}
 		}
+		
 	}
 	.status3 {
 	 	.todo, .sortablePlaceholder 
 		{
 			background-color: @done-background-color;
 			font-size: 0.9em;
+			.actions {
+				background-color: darken(@done-background-color, 10%);
+				border-left: 1px solid darken(@done-background-color, 20%);
+			}
+
+		}
+	}
+	
+	.status4 {
+	 	.todo, .sortablePlaceholder 
+		{
+			background-color: @archived-background-color;
+			font-size: 0.9em;
 			p {
 				text-decoration: underline;
 			}
+			.actions {
+				background-color: darken(@archived-background-color, 10%);
+				border-left: 1px solid darken(@archived-background-color, 20%);
+			}
+
 		}
 	}
+	
 	
 	.logitem {
 		float: left;

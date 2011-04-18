@@ -1,7 +1,7 @@
 <?php
 
 	$js_vars = "";
-	$js_vars .= "var head_title = '". $project_id . " - " .$name ." [" .count($statusOne) .", ". count($statusTwo) .",". count($statusThree) . "]';";
+	$js_vars .= "var head_title = '". $project_id . " - " .$name ." [" .count($statusOne) .",". count($statusTwo) .",". count($statusThree) . "]';";
 	$js_vars .= "var version_url = '".$this->Html->url(array("action" => "version",$project_id))."';";
 	$js_vars .= "var color_update_url = '".$this->Html->url(array("action" => "color"))."';";
 	$js_vars .= "var text_update_url = '".$this->Html->url(array("action" => "update",$project_id,$name))."';";
