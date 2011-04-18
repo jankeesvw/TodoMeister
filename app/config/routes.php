@@ -28,6 +28,7 @@
  */
 Router::connect('/todolist/list_index', array('controller' => 'todos','action'=>'list_index'));
 Router::connect('/todolist/*', array('controller' => 'todos','action'=>'todolist'));
+Router::connect('/statistics', array('controller' => 'statistics','action'=>'index'));
 Router::connect('/:project_id', array('controller' => 'todos','action'=>'todolist'),	array('pass' => array('project_id')));
 Router::connect('/:project_id/:name', array('controller' => 'todos','action'=>'todolist'),	array('pass' => array('project_id','name')));
 Router::connect('/:project_id/:name/#:selected', array('controller' => 'todos','action'=>'todolist'), array('pass' => array('project_id','name','selected')));
