@@ -89,10 +89,6 @@ class TodosController extends AppController {
             $locklink = $html->link($html->image($html->url('/img/pencil_delete.png'), array('title' => 'read only access')), array('action' => 'login', $project_id, $name), array('escape' => false));
         }
 
-        if ($this->Authorization->hasLoginSaved() > 0) {
-            $locklink .= $html->link($html->image($html->url('/img/door_open.png'), array('title' => 'log out')), array('action' => 'logout', $project_id, $name), array('escape' => false));
-        }
-
         $this->set('title_for_layout', $project_id . ' - ' . $name . ' on Todomeister');
 
         $this->set('custom_title', $project_id . $locklink);
